@@ -1482,6 +1482,93 @@
 </head>
 <body>
 
+<!-- ===== ACCESS GATE ===== -->
+<div id="accessGate" style="
+    position: fixed; inset: 0; z-index: 99999;
+    background: #000; display: flex; align-items: center;
+    justify-content: center; font-family: -apple-system, sans-serif;
+">
+    <div style="
+        background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 24px; padding: 48px; max-width: 420px;
+        width: 90%; text-align: center;
+    ">
+        <div style="font-size: 48px; margin-bottom: 16px;">🔐</div>
+        <h2 style="color: #f5f5f7; font-size: 24px; margin-bottom: 8px;">
+            Restricted Access
+        </h2>
+        <p style="color: #a1a1a6; font-size: 14px; margin-bottom: 24px;">
+            This dashboard is access-controlled. Enter your approved access code.
+        </p>
+        <input id="accessCode" type="password" placeholder="Enter access code"
+            style="
+                width: 100%; padding: 14px 18px; border-radius: 12px;
+                background: #0a0a0a; border: 1px solid rgba(255,255,255,0.15);
+                color: #f5f5f7; font-size: 16px; outline: none;
+                margin-bottom: 16px; text-align: center;
+            "
+            onkeypress="if(event.key==='Enter') checkAccess()"
+        />
+        <button onclick="checkAccess()" style="
+            width: 100%; padding: 14px; border-radius: 12px;
+            background: linear-gradient(135deg, #2997ff, #5e5ce6);
+            color: white; border: none; font-size: 16px;
+            font-weight: 600; cursor: pointer;
+        ">
+            Unlock Dashboard →
+        </button>
+        <p id="accessError" style="
+            color: #ff453a; font-size: 13px; margin-top: 12px;
+            display: none;
+        ">
+            Invalid code. Request access from the author.
+        </p>
+        <p style="color: #6e6e73; font-size: 12px; margin-top: 20px;">
+            Need access? Connect with me on
+            <a href="https://linkedin.com/in/YOUR_PROFILE"
+               style="color: #2997ff; text-decoration: none;">
+                LinkedIn
+            </a>
+        </p>
+    </div>
+</div>
+
+<script>
+// ===== ACCESS CONTROL CONFIG =====
+// Add approved codes here. Share unique codes with approved users.
+const APPROVED_CODES = [
+    'AGILE2024',       // Master code
+    'DORA-ELITE',      // For DORA team
+    'METRICS-PRO',     // For management
+    'LINKEDIN-VIP',    // For LinkedIn connections
+    // Add more codes as you approve users:
+    // 'JOHN-DOE-2024',
+    // 'JANE-SMITH-Q1',
+];
+
+function checkAccess() {
+    const code = document.getElementById('accessCode').value.trim().toUpperCase();
+    if (APPROVED_CODES.includes(code)) {
+        // Grant access
+        document.getElementById('accessGate').style.display = 'none';
+        sessionStorage.setItem('agileMetricsAccess', 'granted');
+    } else {
+        // Deny access
+        document.getElementById('accessError').style.display = 'block';
+        document.getElementById('accessCode').style.borderColor = '#ff453a';
+        setTimeout(() => {
+            document.getElementById('accessCode').style.borderColor = 'rgba(255,255,255,0.15)';
+        }, 2000);
+    }
+}
+
+// Check if already approved this session
+if (sessionStorage.getItem('agileMetricsAccess') === 'granted') {
+    document.getElementById('accessGate').style.display = 'none';
+}
+</script>
+<!-- ===== END ACCESS GATE ===== -->
+
     <!-- ===== NAVIGATION ===== -->
     <nav class="nav-container">
         <div class="nav-inner">
