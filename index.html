@@ -1,0 +1,3570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agile Metrics Mastery | Software Development Intelligence</title>
+    <style>
+        /* ===== APPLE-STYLE DESIGN SYSTEM ===== */
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111111;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #222222;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --text-tertiary: #6e6e73;
+            --accent-blue: #2997ff;
+            --accent-purple: #bf5af2;
+            --accent-green: #30d158;
+            --accent-orange: #ff9f0a;
+            --accent-red: #ff453a;
+            --accent-teal: #64d2ff;
+            --accent-pink: #ff375f;
+            --accent-indigo: #5e5ce6;
+            --accent-yellow: #ffd60a;
+            --gradient-blue: linear-gradient(135deg, #2997ff, #5e5ce6);
+            --gradient-purple: linear-gradient(135deg, #bf5af2, #ff375f);
+            --gradient-green: linear-gradient(135deg, #30d158, #64d2ff);
+            --gradient-orange: linear-gradient(135deg, #ff9f0a, #ff453a);
+            --gradient-cosmic: linear-gradient(135deg, #2997ff, #bf5af2, #ff375f);
+            --border-color: rgba(255,255,255,0.08);
+            --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+            --shadow-glow-blue: 0 0 40px rgba(41,151,255,0.15);
+            --shadow-glow-purple: 0 0 40px rgba(191,90,242,0.15);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        /* ===== NAVIGATION ===== */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0,0,0,0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 52px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            transition: color 0.3s;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-nav {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-nav-outline {
+            background: transparent;
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+        }
+
+        .btn-nav-filled {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-nav:hover {
+            transform: scale(1.05);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 20%, rgba(41,151,255,0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 60%, rgba(191,90,242,0.06) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 80%, rgba(255,55,95,0.04) 0%, transparent 50%);
+            animation: heroGlow 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-2%, -2%) rotate(3deg); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(41,151,255,0.1);
+            border: 1px solid rgba(41,151,255,0.2);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 .gradient-text {
+            background: var(--gradient-cosmic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin-bottom: 40px;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-hero {
+            padding: 14px 32px;
+            border-radius: 28px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-hero-primary {
+            background: var(--gradient-blue);
+            color: white;
+            box-shadow: 0 4px 20px rgba(41,151,255,0.3);
+        }
+
+        .btn-hero-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(41,151,255,0.4);
+        }
+
+        .btn-hero-secondary {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-hero-secondary:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-2px);
+        }
+
+        .hero-metrics-preview {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-stat {
+            padding: 24px 16px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            text-align: center;
+            transition: all 0.4s;
+        }
+
+        .hero-stat:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-4px);
+        }
+
+        .hero-stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 4px;
+        }
+
+        .hero-stat-label {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        /* ===== SECTION STYLES ===== */
+        .section {
+            padding: 120px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 72px;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ===== MIND MAP SECTION ===== */
+        .mindmap-container {
+            position: relative;
+            width: 100%;
+            min-height: 800px;
+            margin: 40px 0;
+        }
+
+        .mindmap-canvas {
+            width: 100%;
+            height: 900px;
+            position: relative;
+            overflow: auto;
+        }
+
+        .mindmap-svg-container {
+            width: 2200px;
+            height: 1800px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .mindmap-svg-container svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .mm-node {
+            position: absolute;
+            padding: 14px 22px;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 2;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .mm-node:hover {
+            transform: scale(1.08);
+            z-index: 10;
+        }
+
+        .mm-center {
+            padding: 28px 40px;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: var(--radius-xl);
+            letter-spacing: -0.02em;
+        }
+
+        .mm-l1 {
+            font-size: 15px;
+            font-weight: 600;
+            padding: 16px 24px;
+            border-radius: var(--radius-md);
+        }
+
+        .mm-l2 {
+            font-size: 13px;
+            font-weight: 500;
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+        }
+
+        .mm-l3 {
+            font-size: 11px;
+            font-weight: 400;
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        /* Node Colors */
+        .mm-blue { background: rgba(41,151,255,0.15); border: 1.5px solid rgba(41,151,255,0.4); color: #7dc3ff; }
+        .mm-blue:hover { background: rgba(41,151,255,0.25); box-shadow: var(--shadow-glow-blue); }
+
+        .mm-purple { background: rgba(191,90,242,0.15); border: 1.5px solid rgba(191,90,242,0.4); color: #d4a4f7; }
+        .mm-purple:hover { background: rgba(191,90,242,0.25); box-shadow: var(--shadow-glow-purple); }
+
+        .mm-green { background: rgba(48,209,88,0.15); border: 1.5px solid rgba(48,209,88,0.4); color: #7ee8a0; }
+        .mm-green:hover { background: rgba(48,209,88,0.25); box-shadow: 0 0 40px rgba(48,209,88,0.15); }
+
+        .mm-orange { background: rgba(255,159,10,0.15); border: 1.5px solid rgba(255,159,10,0.4); color: #ffc564; }
+        .mm-orange:hover { background: rgba(255,159,10,0.25); box-shadow: 0 0 40px rgba(255,159,10,0.15); }
+
+        .mm-red { background: rgba(255,69,58,0.15); border: 1.5px solid rgba(255,69,58,0.4); color: #ff8a82; }
+        .mm-red:hover { background: rgba(255,69,58,0.25); box-shadow: 0 0 40px rgba(255,69,58,0.15); }
+
+        .mm-teal { background: rgba(100,210,255,0.15); border: 1.5px solid rgba(100,210,255,0.4); color: #99dfff; }
+        .mm-teal:hover { background: rgba(100,210,255,0.25); box-shadow: 0 0 40px rgba(100,210,255,0.15); }
+
+        .mm-pink { background: rgba(255,55,95,0.15); border: 1.5px solid rgba(255,55,95,0.4); color: #ff7da0; }
+        .mm-pink:hover { background: rgba(255,55,95,0.25); box-shadow: 0 0 40px rgba(255,55,95,0.15); }
+
+        .mm-indigo { background: rgba(94,92,230,0.15); border: 1.5px solid rgba(94,92,230,0.4); color: #9b9af0; }
+        .mm-indigo:hover { background: rgba(94,92,230,0.25); box-shadow: 0 0 40px rgba(94,92,230,0.15); }
+
+        .mm-yellow { background: rgba(255,214,10,0.12); border: 1.5px solid rgba(255,214,10,0.35); color: #ffe566; }
+        .mm-yellow:hover { background: rgba(255,214,10,0.22); box-shadow: 0 0 40px rgba(255,214,10,0.12); }
+
+        .mm-cosmic {
+            background: linear-gradient(135deg, rgba(41,151,255,0.2), rgba(191,90,242,0.2));
+            border: 2px solid rgba(191,90,242,0.5);
+            color: var(--text-primary);
+        }
+        .mm-cosmic:hover {
+            background: linear-gradient(135deg, rgba(41,151,255,0.3), rgba(191,90,242,0.3));
+            box-shadow: 0 0 60px rgba(191,90,242,0.2), 0 0 60px rgba(41,151,255,0.1);
+        }
+
+        /* ===== METRICS CARDS GRID ===== */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .metric-card:hover {
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .metric-card:hover::before {
+            opacity: 1;
+        }
+
+        .metric-card.card-blue::before { background: var(--gradient-blue); }
+        .metric-card.card-purple::before { background: var(--gradient-purple); }
+        .metric-card.card-green::before { background: var(--gradient-green); }
+        .metric-card.card-orange::before { background: var(--gradient-orange); }
+
+        .metric-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .icon-blue { background: rgba(41,151,255,0.15); }
+        .icon-purple { background: rgba(191,90,242,0.15); }
+        .icon-green { background: rgba(48,209,88,0.15); }
+        .icon-orange { background: rgba(255,159,10,0.15); }
+        .icon-red { background: rgba(255,69,58,0.15); }
+        .icon-teal { background: rgba(100,210,255,0.15); }
+
+        .metric-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .metric-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .metric-card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .metric-detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .metric-detail-label {
+            color: var(--text-tertiary);
+        }
+
+        .metric-detail-value {
+            font-weight: 500;
+        }
+
+        .metric-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 16px;
+        }
+
+        .metric-tag {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .tag-blue { background: rgba(41,151,255,0.1); color: var(--accent-blue); border-color: rgba(41,151,255,0.2); }
+        .tag-purple { background: rgba(191,90,242,0.1); color: var(--accent-purple); border-color: rgba(191,90,242,0.2); }
+        .tag-green { background: rgba(48,209,88,0.1); color: var(--accent-green); border-color: rgba(48,209,88,0.2); }
+        .tag-orange { background: rgba(255,159,10,0.1); color: var(--accent-orange); border-color: rgba(255,159,10,0.2); }
+
+        /* ===== CHART SECTIONS ===== */
+        .chart-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+
+        .chart-title-group h3 {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .chart-title-group p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .chart-area {
+            width: 100%;
+            height: 320px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .chart-area svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ===== DORA METRICS ===== */
+        .dora-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .dora-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+
+        .dora-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: var(--shadow-card);
+        }
+
+        .dora-card-level {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .level-elite { background: rgba(48,209,88,0.15); color: var(--accent-green); }
+        .level-high { background: rgba(41,151,255,0.15); color: var(--accent-blue); }
+        .level-medium { background: rgba(255,159,10,0.15); color: var(--accent-orange); }
+        .level-low { background: rgba(255,69,58,0.15); color: var(--accent-red); }
+
+        .dora-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .dora-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .dora-card > p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .dora-tiers {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .dora-tier {
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        .dora-tier-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .dora-tier-value {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* ===== AI METRICS ===== */
+        .ai-metrics-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .ai-metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-metric-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(191,90,242,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .ai-metric-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(191,90,242,0.3);
+            box-shadow: var(--shadow-glow-purple);
+        }
+
+        .ai-metric-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-metric-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===== COMPARISON TABLE ===== */
+        .comparison-table-wrapper {
+            overflow-x: auto;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .comparison-table thead {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .comparison-table th {
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .comparison-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            color: var(--text-primary);
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-green { background: rgba(48,209,88,0.1); color: var(--accent-green); }
+        .status-blue { background: rgba(41,151,255,0.1); color: var(--accent-blue); }
+        .status-orange { background: rgba(255,159,10,0.1); color: var(--accent-orange); }
+        .status-red { background: rgba(255,69,58,0.1); color: var(--accent-red); }
+
+        /* ===== FRAMEWORKS SECTION ===== */
+        .framework-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .framework-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: all 0.4s;
+        }
+
+        .framework-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-card);
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        .framework-card h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .framework-card ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .framework-card li {
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .framework-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+        }
+
+        /* ===== FORMULA CARDS ===== */
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+
+        .formula-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            transition: all 0.3s;
+        }
+
+        .formula-card:hover {
+            border-color: rgba(41,151,255,0.3);
+        }
+
+        .formula-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .formula-expression {
+            background: rgba(41,151,255,0.08);
+            border: 1px solid rgba(41,151,255,0.15);
+            border-radius: 10px;
+            padding: 16px;
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 14px;
+            color: var(--accent-teal);
+            margin-bottom: 12px;
+            overflow-x: auto;
+        }
+
+        .formula-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===== FLOW DIAGRAM ===== */
+        .flow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            padding: 40px 0;
+            overflow-x: auto;
+        }
+
+        .flow-node {
+            padding: 18px 28px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            min-width: 140px;
+            border: 1.5px solid;
+            flex-shrink: 0;
+        }
+
+        .flow-arrow {
+            color: var(--text-tertiary);
+            font-size: 20px;
+            padding: 0 8px;
+            flex-shrink: 0;
+        }
+
+        /* ===== DASHBOARD PREVIEW ===== */
+        .dashboard-preview {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .dashboard-top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dashboard-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .dashboard-filters {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: rgba(41,151,255,0.15);
+            border-color: rgba(41,151,255,0.3);
+            color: var(--accent-blue);
+        }
+
+        .dashboard-kpi-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .kpi-widget {
+            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .kpi-label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-top: 4px;
+        }
+
+        .kpi-trend {
+            font-size: 12px;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .trend-up { color: var(--accent-green); }
+        .trend-down { color: var(--accent-red); }
+        .trend-neutral { color: var(--text-tertiary); }
+
+        .dashboard-charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .dashboard-chart-widget {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+        }
+
+        .dashboard-chart-widget h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* ===== ANTI-PATTERNS ===== */
+        .antipattern-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .antipattern-card {
+            background: rgba(255,69,58,0.04);
+            border: 1px solid rgba(255,69,58,0.15);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            transition: all 0.3s;
+        }
+
+        .antipattern-card:hover {
+            border-color: rgba(255,69,58,0.3);
+        }
+
+        .antipattern-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-red);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .antipattern-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===== BEST PRACTICES ===== */
+        .bestpractice-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 16px;
+        }
+
+        .bestpractice-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            background: rgba(48,209,88,0.04);
+            border: 1px solid rgba(48,209,88,0.12);
+            border-radius: var(--radius-md);
+            transition: all 0.3s;
+        }
+
+        .bestpractice-item:hover {
+            border-color: rgba(48,209,88,0.25);
+        }
+
+        .bestpractice-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(48,209,88,0.15);
+            color: var(--accent-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .bestpractice-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .bestpractice-content p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===== MATURITY MODEL ===== */
+        .maturity-track {
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+
+        .maturity-stage {
+            flex: 1;
+            min-width: 200px;
+            padding: 28px 20px;
+            text-align: center;
+            position: relative;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+        }
+
+        .maturity-stage:first-child {
+            border-radius: var(--radius-md) 0 0 var(--radius-md);
+        }
+
+        .maturity-stage:last-child {
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+
+        .maturity-stage h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .maturity-stage .stage-level {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .maturity-stage ul {
+            list-style: none;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .maturity-stage li::before {
+            content: '• ';
+        }
+
+        /* ===== FULL-WIDTH DIVIDER ===== */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: var(--border-color);
+            margin: 0;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 60px 24px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .footer-col h4 {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-col a {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        /* ===== INTERACTIVE TABS ===== */
+        .tabs-container {
+            margin: 40px 0;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 4px;
+            padding: 4px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 14px;
+            margin-bottom: 32px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: rgba(41,151,255,0.15);
+            color: var(--accent-blue);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .dora-grid { grid-template-columns: 1fr; }
+            .ai-metrics-container { grid-template-columns: repeat(2, 1fr); }
+            .dashboard-kpi-row { grid-template-columns: repeat(3, 1fr); }
+            .dashboard-charts-row { grid-template-columns: 1fr; }
+            .hero-metrics-preview { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero h1 { font-size: 40px; }
+            .metrics-grid { grid-template-columns: 1fr; }
+            .ai-metrics-container { grid-template-columns: 1fr; }
+            .dashboard-kpi-row { grid-template-columns: repeat(2, 1fr); }
+            .formula-grid { grid-template-columns: 1fr; }
+            .antipattern-grid { grid-template-columns: 1fr; }
+            .bestpractice-list { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .maturity-track { flex-direction: column; }
+            .maturity-stage { border-radius: var(--radius-md) !important; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-metrics-preview { grid-template-columns: 1fr; }
+            .dashboard-kpi-row { grid-template-columns: 1fr; }
+            .chart-header { flex-direction: column; gap: 16px; }
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            .nav-container, .hero-cta-group, .btn-hero, .filter-btn, .tabs-nav { display: none !important; }
+            body { background: white; color: #000; }
+            .metric-card, .dora-card, .ai-metric-card, .dashboard-preview, .chart-section {
+                break-inside: avoid;
+                border: 1px solid #ddd;
+            }
+            .section { padding: 40px 0; }
+        }
+
+        /* ===== SCROLLING ANIMATION ===== */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== TOOLTIP ===== */
+        .tooltip-trigger {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dashed var(--text-tertiary);
+        }
+
+        .tooltip-trigger:hover .tooltip-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .tooltip-content {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            background: #333;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        /* ===== SPARKLINE BAR ===== */
+        .sparkline-bar {
+            display: flex;
+            gap: 2px;
+            align-items: flex-end;
+            height: 32px;
+        }
+
+        .sparkline-bar span {
+            flex: 1;
+            background: var(--accent-blue);
+            border-radius: 2px;
+            min-width: 4px;
+            transition: all 0.3s;
+        }
+
+        .sparkline-bar:hover span {
+            opacity: 0.7;
+        }
+
+        .sparkline-bar:hover span:hover {
+            opacity: 1;
+            background: var(--accent-teal);
+        }
+
+        /* ===== PROGRESS RING ===== */
+        .progress-ring-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .progress-ring {
+            width: 60px;
+            height: 60px;
+        }
+
+        .progress-ring circle {
+            transition: stroke-dashoffset 0.8s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="nav-container">
+        <div class="nav-inner">
+            <div class="nav-logo">
+                <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="28" height="28" rx="6" fill="url(#navGrad)"/>
+                    <path d="M8 14L12 18L20 10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs><linearGradient id="navGrad" x1="0" y1="0" x2="28" y2="28"><stop stop-color="#2997ff"/><stop offset="1" stop-color="#5e5ce6"/></linearGradient></defs>
+                </svg>
+                Agile Metrics
+            </div>
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#mindmap">Mind Map</a></li>
+                <li><a href="#velocity">Velocity</a></li>
+                <li><a href="#burndown">Burn Charts</a></li>
+                <li><a href="#dora">DORA</a></li>
+                <li><a href="#ai-metrics">AI Metrics</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#frameworks">Frameworks</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-nav btn-nav-outline" onclick="window.print()">Export PDF</button>
+                <button class="btn-nav btn-nav-filled" onclick="toggleDarkMode()">🌙</button>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="overview">
+        <div class="hero-badge">
+            <span></span>
+            2024 Premier League Edition • Enterprise Grade
+        </div>
+        <h1>
+            <span class="gradient-text">Agile Metrics</span><br>
+            Intelligence Platform
+        </h1>
+        <p class="hero-subtitle">
+            The definitive reference for software development metrics. From Velocity to DORA to AI-powered insights — master every metric that drives engineering excellence.
+        </p>
+        <div class="hero-cta-group">
+            <a href="#mindmap" class="btn-hero btn-hero-primary">
+                Explore Mind Map →
+            </a>
+            <a href="#dashboard" class="btn-hero btn-hero-secondary">
+                View Dashboard
+            </a>
+        </div>
+        <div class="hero-metrics-preview">
+            <div class="hero-stat">
+                <div class="hero-stat-value" style="color: var(--accent-blue)">68+</div>
+                <div class="hero-stat-label">Metrics Covered</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-value" style="color: var(--accent-green)">12</div>
+                <div class="hero-stat-label">Categories</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-value" style="color: var(--accent-purple)">4</div>
+                <div class="hero-stat-label">DORA Keys</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-value" style="color: var(--accent-orange)">∞</div>
+                <div class="hero-stat-label">Insights</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== MASTER MIND MAP ===== -->
+    <section class="section" id="mindmap">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">📊 Complete Architecture</div>
+            <h2 class="section-title">Agile Metrics<br><span class="gradient-text">Mind Map</span></h2>
+            <p class="section-desc">Interactive visual architecture of every agile metric category, sub-metric, and their relationships. Scroll horizontally to explore.</p>
+        </div>
+
+        <div class="mindmap-canvas" style="overflow: auto; border: 1px solid var(--border-color); border-radius: var(--radius-xl); background: rgba(0,0,0,0.4);">
+            <div class="mindmap-svg-container">
+                <!-- SVG Connection Lines -->
+                <svg viewBox="0 0 2200 1800" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="lineBlue" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#2997ff" stop-opacity="0.5"/><stop offset="100%" stop-color="#2997ff" stop-opacity="0.1"/></linearGradient>
+                        <linearGradient id="linePurple" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#bf5af2" stop-opacity="0.5"/><stop offset="100%" stop-color="#bf5af2" stop-opacity="0.1"/></linearGradient>
+                        <linearGradient id="lineGreen" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#30d158" stop-opacity="0.5"/><stop offset="100%" stop-color="#30d158" stop-opacity="0.1"/></linearGradient>
+                        <linearGradient id="lineOrange" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ff9f0a" stop-opacity="0.5"/><stop offset="100%" stop-color="#ff9f0a" stop-opacity="0.1"/></linearGradient>
+                        <linearGradient id="lineRed" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ff453a" stop-opacity="0.5"/><stop offset="100%" stop-color="#ff453a" stop-opacity="0.1"/></linearGradient>
+                        <linearGradient id="lineTeal" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#64d2ff" stop-opacity="0.5"/><stop offset="100%" stop-color="#64d2ff" stop-opacity="0.1"/></linearGradient>
+                        <linearGradient id="linePink" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ff375f" stop-opacity="0.5"/><stop offset="100%" stop-color="#ff375f" stop-opacity="0.1"/></linearGradient>
+                        <linearGradient id="lineIndigo" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#5e5ce6" stop-opacity="0.5"/><stop offset="100%" stop-color="#5e5ce6" stop-opacity="0.1"/></linearGradient>
+                    </defs>
+
+                    <!-- Center to L1 connections -->
+                    <!-- Velocity -->
+                    <path d="M1100,900 C900,900 700,200 480,200" stroke="url(#lineBlue)" stroke-width="2" fill="none"/>
+                    <!-- Burn Charts -->
+                    <path d="M1100,900 C900,900 700,400 480,400" stroke="url(#linePurple)" stroke-width="2" fill="none"/>
+                    <!-- DORA -->
+                    <path d="M1100,900 C900,900 600,620 480,620" stroke="url(#lineGreen)" stroke-width="2" fill="none"/>
+                    <!-- Quality -->
+                    <path d="M1100,900 C900,900 600,840 480,840" stroke="url(#lineOrange)" stroke-width="2" fill="none"/>
+                    <!-- Flow -->
+                    <path d="M1100,900 C900,900 600,1050 480,1050" stroke="url(#lineTeal)" stroke-width="2" fill="none"/>
+                    <!-- Team Health -->
+                    <path d="M1100,900 C900,900 600,1260 480,1260" stroke="url(#linePink)" stroke-width="2" fill="none"/>
+                    <!-- AI Metrics (Right) -->
+                    <path d="M1100,900 C1300,900 1500,200 1700,200" stroke="url(#lineIndigo)" stroke-width="2" fill="none"/>
+                    <!-- DevOps -->
+                    <path d="M1100,900 C1300,900 1500,420 1700,420" stroke="url(#lineRed)" stroke-width="2" fill="none"/>
+                    <!-- Business -->
+                    <path d="M1100,900 C1300,900 1500,640 1700,640" stroke="url(#lineOrange)" stroke-width="2" fill="none"/>
+                    <!-- Predictability -->
+                    <path d="M1100,900 C1300,900 1500,860 1700,860" stroke="url(#lineBlue)" stroke-width="2" fill="none"/>
+                    <!-- Portfolio -->
+                    <path d="M1100,900 C1300,900 1500,1060 1700,1060" stroke="url(#lineGreen)" stroke-width="2" fill="none"/>
+                    <!-- Waste -->
+                    <path d="M1100,900 C1300,900 1500,1280 1700,1280" stroke="url(#linePurple)" stroke-width="2" fill="none"/>
+
+                    <!-- L1 to L2 connections (Left side) -->
+                    <!-- Velocity children -->
+                    <path d="M480,200 C380,200 300,110 220,110" stroke="rgba(41,151,255,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,200 C380,200 300,175 220,175" stroke="rgba(41,151,255,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,200 C380,200 300,240 220,240" stroke="rgba(41,151,255,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,200 C380,200 300,300 220,300" stroke="rgba(41,151,255,0.25)" stroke-width="1.5" fill="none"/>
+                    <!-- Burn children -->
+                    <path d="M480,400 C380,400 300,350 220,350" stroke="rgba(191,90,242,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,400 C380,400 300,410 220,410" stroke="rgba(191,90,242,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,400 C380,400 300,465 220,465" stroke="rgba(191,90,242,0.25)" stroke-width="1.5" fill="none"/>
+                    <!-- DORA children -->
+                    <path d="M480,620 C380,620 300,550 220,550" stroke="rgba(48,209,88,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,620 C380,620 300,610 220,610" stroke="rgba(48,209,88,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,620 C380,620 300,665 220,665" stroke="rgba(48,209,88,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,620 C380,620 300,720 220,720" stroke="rgba(48,209,88,0.25)" stroke-width="1.5" fill="none"/>
+                    <!-- Quality children -->
+                    <path d="M480,840 C380,840 300,790 220,790" stroke="rgba(255,159,10,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,840 C380,840 300,845 220,845" stroke="rgba(255,159,10,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,840 C380,840 300,900 220,900" stroke="rgba(255,159,10,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,840 C380,840 300,955 220,955" stroke="rgba(255,159,10,0.25)" stroke-width="1.5" fill="none"/>
+                    <!-- Flow children -->
+                    <path d="M480,1050 C380,1050 300,1010 220,1010" stroke="rgba(100,210,255,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,1050 C380,1050 300,1065 220,1065" stroke="rgba(100,210,255,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,1050 C380,1050 300,1115 220,1115" stroke="rgba(100,210,255,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,1050 C380,1050 300,1165 220,1165" stroke="rgba(100,210,255,0.25)" stroke-width="1.5" fill="none"/>
+                    <!-- Team children -->
+                    <path d="M480,1260 C380,1260 300,1225 220,1225" stroke="rgba(255,55,95,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,1260 C380,1260 300,1280 220,1280" stroke="rgba(255,55,95,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M480,1260 C380,1260 300,1330 220,1330" stroke="rgba(255,55,95,0.25)" stroke-width="1.5" fill="none"/>
+
+                    <!-- L1 to L2 connections (Right side) -->
+                    <!-- AI children -->
+                    <path d="M1700,200 C1800,200 1880,100 1960,100" stroke="rgba(94,92,230,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,200 C1800,200 1880,160 1960,160" stroke="rgba(94,92,230,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,200 C1800,200 1880,220 1960,220" stroke="rgba(94,92,230,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,200 C1800,200 1880,280 1960,280" stroke="rgba(94,92,230,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,200 C1800,200 1880,335 1960,335" stroke="rgba(94,92,230,0.25)" stroke-width="1.5" fill="none"/>
+                    <!-- DevOps children -->
+                    <path d="M1700,420 C1800,420 1880,390 1960,390" stroke="rgba(255,69,58,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,420 C1800,420 1880,445 1960,445" stroke="rgba(255,69,58,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,420 C1800,420 1880,500 1960,500" stroke="rgba(255,69,58,0.25)" stroke-width="1.5" fill="none"/>
+                    <!-- Business children -->
+                    <path d="M1700,640 C1800,640 1880,590 1960,590" stroke="rgba(255,159,10,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,640 C1800,640 1880,650 1960,650" stroke="rgba(255,159,10,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,640 C1800,640 1880,710 1960,710" stroke="rgba(255,159,10,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,640 C1800,640 1880,770 1960,770" stroke="rgba(255,159,10,0.25)" stroke-width="1.5" fill="none"/>
+                    <!-- Predictability children -->
+                    <path d="M1700,860 C1800,860 1880,830 1960,830" stroke="rgba(41,151,255,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,860 C1800,860 1880,885 1960,885" stroke="rgba(41,151,255,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,860 C1800,860 1880,940 1960,940" stroke="rgba(41,151,255,0.25)" stroke-width="1.5" fill="none"/>
+                    <!-- Portfolio children -->
+                    <path d="M1700,1060 C1800,1060 1880,1020 1960,1020" stroke="rgba(48,209,88,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,1060 C1800,1060 1880,1080 1960,1080" stroke="rgba(48,209,88,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,1060 C1800,1060 1880,1135 1960,1135" stroke="rgba(48,209,88,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,1060 C1800,1060 1880,1190 1960,1190" stroke="rgba(48,209,88,0.25)" stroke-width="1.5" fill="none"/>
+                    <!-- Waste children -->
+                    <path d="M1700,1280 C1800,1280 1880,1250 1960,1250" stroke="rgba(191,90,242,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,1280 C1800,1280 1880,1305 1960,1305" stroke="rgba(191,90,242,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M1700,1280 C1800,1280 1880,1360 1960,1360" stroke="rgba(191,90,242,0.25)" stroke-width="1.5" fill="none"/>
+                </svg>
+
+                <!-- CENTER NODE -->
+                <div class="mm-node mm-center mm-cosmic" style="left:1000px; top:870px;">🎯 Agile Metrics</div>
+
+                <!-- ===== LEFT BRANCH: L1 NODES ===== -->
+                <!-- Velocity & Throughput -->
+                <div class="mm-node mm-l1 mm-blue" style="left:380px; top:180px;">⚡ Velocity & Throughput</div>
+                <div class="mm-node mm-l2 mm-blue" style="left:50px; top:95px;">Sprint Velocity (SP)</div>
+                <div class="mm-node mm-l2 mm-blue" style="left:50px; top:155px;">Story Points Completed</div>
+                <div class="mm-node mm-l2 mm-blue" style="left:50px; top:220px;">Throughput (items/sprint)</div>
+                <div class="mm-node mm-l2 mm-blue" style="left:50px; top:280px;">Running Avg Velocity</div>
+
+                <!-- Burn Charts -->
+                <div class="mm-node mm-l1 mm-purple" style="left:380px; top:380px;">🔥 Burn Charts</div>
+                <div class="mm-node mm-l2 mm-purple" style="left:70px; top:335px;">Burndown Chart</div>
+                <div class="mm-node mm-l2 mm-purple" style="left:70px; top:395px;">Burnup Chart</div>
+                <div class="mm-node mm-l2 mm-purple" style="left:70px; top:450px;">Release Burndown</div>
+
+                <!-- DORA Metrics -->
+                <div class="mm-node mm-l1 mm-green" style="left:380px; top:600px;">🚀 DORA Metrics</div>
+                <div class="mm-node mm-l2 mm-green" style="left:30px; top:535px;">Deployment Frequency</div>
+                <div class="mm-node mm-l2 mm-green" style="left:30px; top:595px;">Lead Time for Changes</div>
+                <div class="mm-node mm-l2 mm-green" style="left:30px; top:650px;">Mean Time to Recovery</div>
+                <div class="mm-node mm-l2 mm-green" style="left:30px; top:705px;">Change Failure Rate</div>
+
+                <!-- Quality Metrics -->
+                <div class="mm-node mm-l1 mm-orange" style="left:380px; top:820px;">🛡️ Quality Metrics</div>
+                <div class="mm-node mm-l2 mm-orange" style="left:40px; top:775px;">Defect Density</div>
+                <div class="mm-node mm-l2 mm-orange" style="left:40px; top:830px;">Code Coverage %</div>
+                <div class="mm-node mm-l2 mm-orange" style="left:40px; top:885px;">Technical Debt Ratio</div>
+                <div class="mm-node mm-l2 mm-orange" style="left:40px; top:940px;">Escaped Defects</div>
+
+                <!-- Flow Metrics -->
+                <div class="mm-node mm-l1 mm-teal" style="left:380px; top:1030px;">🌊 Flow Metrics</div>
+                <div class="mm-node mm-l2 mm-teal" style="left:60px; top:995px;">Cycle Time</div>
+                <div class="mm-node mm-l2 mm-teal" style="left:60px; top:1050px;">Lead Time</div>
+                <div class="mm-node mm-l2 mm-teal" style="left:60px; top:1100px;">WIP (Work in Progress)</div>
+                <div class="mm-node mm-l2 mm-teal" style="left:60px; top:1150px;">Cumulative Flow</div>
+
+                <!-- Team Health -->
+                <div class="mm-node mm-l1 mm-pink" style="left:380px; top:1240px;">💖 Team Health</div>
+                <div class="mm-node mm-l2 mm-pink" style="left:60px; top:1210px;">Team Happiness Index</div>
+                <div class="mm-node mm-l2 mm-pink" style="left:60px; top:1265px;">Sprint Satisfaction</div>
+                <div class="mm-node mm-l2 mm-pink" style="left:60px; top:1315px;">Collaboration Score</div>
+
+                <!-- ===== RIGHT BRANCH: L1 NODES ===== -->
+                <!-- AI Metrics -->
+                <div class="mm-node mm-l1 mm-indigo" style="left:1620px; top:180px;">🤖 AI & Automation</div>
+                <div class="mm-node mm-l2 mm-indigo" style="left:1920px; top:85px;">AI Code Suggestions</div>
+                <div class="mm-node mm-l2 mm-indigo" style="left:1920px; top:145px;">Copilot Acceptance Rate</div>
+                <div class="mm-node mm-l2 mm-indigo" style="left:1920px; top:205px;">Auto-Test Coverage</div>
+                <div class="mm-node mm-l2 mm-indigo" style="left:1920px; top:265px;">AI Review Accuracy</div>
+                <div class="mm-node mm-l2 mm-indigo" style="left:1920px; top:320px;">ML Model Drift</div>
+
+                <!-- DevOps Metrics -->
+                <div class="mm-node mm-l1 mm-red" style="left:1620px; top:400px;">⚙️ DevOps Metrics</div>
+                <div class="mm-node mm-l2 mm-red" style="left:1920px; top:375px;">Build Success Rate</div>
+                <div class="mm-node mm-l2 mm-red" style="left:1920px; top:430px;">Pipeline Duration</div>
+                <div class="mm-node mm-l2 mm-red" style="left:1920px; top:485px;">Infrastructure Cost</div>
+
+                <!-- Business Value -->
+                <div class="mm-node mm-l1 mm-orange" style="left:1620px; top:620px;">💰 Business Value</div>
+                <div class="mm-node mm-l2 mm-orange" style="left:1920px; top:575px;">ROI per Feature</div>
+                <div class="mm-node mm-l2 mm-orange" style="left:1920px; top:635px;">Customer Satisfaction</div>
+                <div class="mm-node mm-l2 mm-orange" style="left:1920px; top:695px;">Net Promoter Score</div>
+                <div class="mm-node mm-l2 mm-orange" style="left:1920px; top:755px;">Feature Usage Rate</div>
+
+                <!-- Predictability -->
+                <div class="mm-node mm-l1 mm-blue" style="left:1620px; top:840px;">🎯 Predictability</div>
+                <div class="mm-node mm-l2 mm-blue" style="left:1920px; top:815px;">Sprint Goal Success</div>
+                <div class="mm-node mm-l2 mm-blue" style="left:1920px; top:870px;">Commitment Reliability</div>
+                <div class="mm-node mm-l2 mm-blue" style="left:1920px; top:925px;">Estimation Accuracy</div>
+
+                <!-- Portfolio -->
+                <div class="mm-node mm-l1 mm-green" style="left:1620px; top:1040px;">📁 Portfolio Metrics</div>
+                <div class="mm-node mm-l2 mm-green" style="left:1920px; top:1005px;">Strategic Alignment %</div>
+                <div class="mm-node mm-l2 mm-green" style="left:1920px; top:1065px;">Value Stream Flow</div>
+                <div class="mm-node mm-l2 mm-green" style="left:1920px; top:1120px;">Dependency Index</div>
+                <div class="mm-node mm-l2 mm-green" style="left:1920px; top:1175px;">Cross-team Blockers</div>
+
+                <!-- Waste Metrics -->
+                <div class="mm-node mm-l1 mm-purple" style="left:1620px; top:1260px;">🗑️ Waste Metrics</div>
+                <div class="mm-node mm-l2 mm-purple" style="left:1920px; top:1235px;">Rework Percentage</div>
+                <div class="mm-node mm-l2 mm-purple" style="left:1920px; top:1290px;">Wait Time Ratio</div>
+                <div class="mm-node mm-l2 mm-purple" style="left:1920px; top:1345px;">Context Switch Index</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== VELOCITY & THROUGHPUT ===== -->
+    <section class="section" id="velocity">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">⚡ Sprint Performance</div>
+            <h2 class="section-title">Velocity &<br><span class="gradient-text">Throughput Metrics</span></h2>
+            <p class="section-desc">The foundational metrics that measure your team's capacity, delivery rate, and sprint-over-sprint performance.</p>
+        </div>
+
+        <!-- Velocity Chart -->
+        <div class="chart-section animate-on-scroll">
+            <div class="chart-header">
+                <div class="chart-title-group">
+                    <h3>Sprint Velocity Trend</h3>
+                    <p>Story Points completed per sprint — Last 10 sprints</p>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item"><div class="legend-dot" style="background: var(--accent-blue)"></div> Completed</div>
+                    <div class="legend-item"><div class="legend-dot" style="background: rgba(41,151,255,0.3)"></div> Committed</div>
+                    <div class="legend-item"><div class="legend-dot" style="background: var(--accent-orange); width: 20px; height: 2px; border-radius: 1px;"></div> Avg Velocity</div>
+                </div>
+            </div>
+            <div class="chart-area">
+                <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Grid lines -->
+                    <line x1="80" y1="40" x2="980" y2="40" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                    <line x1="80" y1="100" x2="980" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                    <line x1="80" y1="160" x2="980" y2="160" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                    <line x1="80" y1="220" x2="980" y2="220" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                    <line x1="80" y1="280" x2="980" y2="280" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+                    <!-- Y-axis labels -->
+                    <text x="70" y="44" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">80</text>
+                    <text x="70" y="104" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">60</text>
+                    <text x="70" y="164" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">40</text>
+                    <text x="70" y="224" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">20</text>
+                    <text x="70" y="284" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">0</text>
+
+                    <!-- X-axis labels -->
+                    <text x="130" y="298" text-anchor="middle" fill="#6e6e73" font-size="10" font-family="-apple-system, sans-serif">S1</text>
+                    <text x="220" y="298" text-anchor="middle" fill="#6e6e73" font-size="10" font-family="-apple-system, sans-serif">S2</text>
+                    <text x="310" y="298" text-anchor="middle" fill="#6e6e73" font-size="10" font-family="-apple-system, sans-serif">S3</text>
+                    <text x="400" y="298" text-anchor="middle" fill="#6e6e73" font-size="10" font-family="-apple-system, sans-serif">S4</text>
+                    <text x="490" y="298" text-anchor="middle" fill="#6e6e73" font-size="10" font-family="-apple-system, sans-serif">S5</text>
+                    <text x="580" y="298" text-anchor="middle" fill="#6e6e73" font-size="10" font-family="-apple-system, sans-serif">S6</text>
+                    <text x="670" y="298" text-anchor="middle" fill="#6e6e73" font-size="10" font-family="-apple-system, sans-serif">S7</text>
+                    <text x="760" y="298" text-anchor="middle" fill="#6e6e73" font-size="10" font-family="-apple-system, sans-serif">S8</text>
+                    <text x="850" y="298" text-anchor="middle" fill="#6e6e73" font-size="10" font-family="-apple-system, sans-serif">S9</text>
+                    <text x="940" y="298" text-anchor="middle" fill="#6e6e73" font-size="10" font-family="-apple-system, sans-serif">S10</text>
+
+                    <!-- Committed bars (background) -->
+                    <rect x="112" y="100" width="36" height="180" rx="4" fill="rgba(41,151,255,0.12)"/>
+                    <rect x="202" y="80" width="36" height="200" rx="4" fill="rgba(41,151,255,0.12)"/>
+                    <rect x="292" y="70" width="36" height="210" rx="4" fill="rgba(41,151,255,0.12)"/>
+                    <rect x="382" y="85" width="36" height="195" rx="4" fill="rgba(41,151,255,0.12)"/>
+                    <rect x="472" y="65" width="36" height="215" rx="4" fill="rgba(41,151,255,0.12)"/>
+                    <rect x="562" y="60" width="36" height="220" rx="4" fill="rgba(41,151,255,0.12)"/>
+                    <rect x="652" y="75" width="36" height="205" rx="4" fill="rgba(41,151,255,0.12)"/>
+                    <rect x="742" y="55" width="36" height="225" rx="4" fill="rgba(41,151,255,0.12)"/>
+                    <rect x="832" y="50" width="36" height="230" rx="4" fill="rgba(41,151,255,0.12)"/>
+                    <rect x="922" y="45" width="36" height="235" rx="4" fill="rgba(41,151,255,0.12)"/>
+
+                    <!-- Completed bars -->
+                    <rect x="112" y="130" width="36" height="150" rx="4" fill="#2997ff"/>
+                    <rect x="202" y="110" width="36" height="170" rx="4" fill="#2997ff"/>
+                    <rect x="292" y="100" width="36" height="180" rx="4" fill="#2997ff"/>
+                    <rect x="382" y="120" width="36" height="160" rx="4" fill="#2997ff"/>
+                    <rect x="472" y="90" width="36" height="190" rx="4" fill="#2997ff"/>
+                    <rect x="562" y="85" width="36" height="195" rx="4" fill="#2997ff"/>
+                    <rect x="652" y="95" width="36" height="185" rx="4" fill="#2997ff"/>
+                    <rect x="742" y="70" width="36" height="210" rx="4" fill="#2997ff"/>
+                    <rect x="832" y="60" width="36" height="220" rx="4" fill="#2997ff"/>
+                    <rect x="922" y="55" width="36" height="225" rx="4" fill="#2997ff"/>
+
+                    <!-- Average line -->
+                    <line x1="80" y1="105" x2="980" y2="95" stroke="#ff9f0a" stroke-width="2" stroke-dasharray="8,4"/>
+
+                    <!-- Data points on average -->
+                    <circle cx="130" cy="105" r="3" fill="#ff9f0a"/>
+                    <circle cx="940" cy="95" r="3" fill="#ff9f0a"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="metrics-grid animate-on-scroll">
+            <div class="metric-card card-blue">
+                <div class="metric-card-icon icon-blue">⚡</div>
+                <h3>Sprint Velocity</h3>
+                <p>Total story points (or items) completed within a sprint. The primary measure of team delivery capacity.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Formula</span>
+                        <span class="metric-detail-value" style="color: var(--accent-teal);">Σ SP completed in sprint</span>
+                    </div>
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Good Range</span>
+                        <span class="metric-detail-value" style="color: var(--accent-green);">±10% variance</span>
+                    </div>
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Track With</span>
+                        <span class="metric-detail-value">Rolling 3-sprint avg</span>
+                    </div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-blue">Scrum</span>
+                    <span class="metric-tag tag-blue">Planning</span>
+                    <span class="metric-tag">Capacity</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-blue">
+                <div class="metric-card-icon icon-blue">📊</div>
+                <h3>Throughput</h3>
+                <p>Number of work items completed per unit of time. Size-agnostic alternative to story point velocity.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Formula</span>
+                        <span class="metric-detail-value" style="color: var(--accent-teal);">Items / Time Period</span>
+                    </div>
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Best For</span>
+                        <span class="metric-detail-value">Kanban teams</span>
+                    </div>
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Visualize</span>
+                        <span class="metric-detail-value">Histogram</span>
+                    </div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-blue">Kanban</span>
+                    <span class="metric-tag tag-blue">Lean</span>
+                    <span class="metric-tag">Forecasting</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-blue">
+                <div class="metric-card-icon icon-blue">📈</div>
+                <h3>Velocity Variance</h3>
+                <p>Measures the consistency of delivery across sprints. Lower variance = more predictable delivery.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Formula</span>
+                        <span class="metric-detail-value" style="color: var(--accent-teal);">σ / μ × 100%</span>
+                    </div>
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Target</span>
+                        <span class="metric-detail-value" style="color: var(--accent-green);">< 20%</span>
+                    </div>
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Warning</span>
+                        <span class="metric-detail-value" style="color: var(--accent-orange);">> 30%</span>
+                    </div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-blue">Scrum</span>
+                    <span class="metric-tag">Predictability</span>
+                    <span class="metric-tag">Statistical</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-blue">
+                <div class="metric-card-icon icon-blue">🎯</div>
+                <h3>Sprint Goal Achievement</h3>
+                <p>Percentage of sprints where the sprint goal was fully met. Tracks outcome-based success, not just output.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Formula</span>
+                        <span class="metric-detail-value" style="color: var(--accent-teal);">Goals Met / Total Sprints × 100</span>
+                    </div>
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Elite Target</span>
+                        <span class="metric-detail-value" style="color: var(--accent-green);">≥ 85%</span>
+                    </div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-green">Outcome</span>
+                    <span class="metric-tag tag-blue">Scrum</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-blue">
+                <div class="metric-card-icon icon-blue">🔄</div>
+                <h3>Sprint Commitment Reliability</h3>
+                <p>Ratio of delivered vs committed work. Indicates planning accuracy and team reliability.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Formula</span>
+                        <span class="metric-detail-value" style="color: var(--accent-teal);">Delivered SP / Committed SP</span>
+                    </div>
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Ideal</span>
+                        <span class="metric-detail-value" style="color: var(--accent-green);">85–100%</span>
+                    </div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-blue">Planning</span>
+                    <span class="metric-tag">Reliability</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-blue">
+                <div class="metric-card-icon icon-blue">📋</div>
+                <h3>Capacity Utilization</h3>
+                <p>Percentage of team's available capacity that is effectively used for planned delivery work.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Formula</span>
+                        <span class="metric-detail-value" style="color: var(--accent-teal);">Actual Work / Available Capacity</span>
+                    </div>
+                    <div class="metric-detail-row">
+                        <span class="metric-detail-label">Ideal Range</span>
+                        <span class="metric-detail-value" style="color: var(--accent-green);">70–85%</span>
+                    </div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-orange">Capacity</span>
+                    <span class="metric-tag">Planning</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== BURN CHARTS ===== -->
+    <section class="section" id="burndown">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">🔥 Progress Visualization</div>
+            <h2 class="section-title">Burndown &<br><span class="gradient-text">Burnup Charts</span></h2>
+            <p class="section-desc">Visual progress trackers that show remaining work and scope changes across sprint and release timelines.</p>
+        </div>
+
+        <!-- Burndown Chart -->
+        <div class="chart-section animate-on-scroll">
+            <div class="chart-header">
+                <div class="chart-title-group">
+                    <h3>Sprint Burndown</h3>
+                    <p>Remaining work (story points) vs. ideal pace — Sprint 10</p>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item"><div class="legend-dot" style="background: var(--accent-blue)"></div> Actual</div>
+                    <div class="legend-item"><div class="legend-dot" style="background: rgba(255,255,255,0.2); width: 16px; height: 2px; border-radius: 1px;"></div> Ideal</div>
+                </div>
+            </div>
+            <div class="chart-area">
+                <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Grid -->
+                    <line x1="80" y1="40" x2="950" y2="40" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                    <line x1="80" y1="100" x2="950" y2="100" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                    <line x1="80" y1="160" x2="950" y2="160" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                    <line x1="80" y1="220" x2="950" y2="220" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                    <line x1="80" y1="275" x2="950" y2="275" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+                    <!-- Y-axis -->
+                    <text x="70" y="45" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">60</text>
+                    <text x="70" y="105" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">45</text>
+                    <text x="70" y="165" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">30</text>
+                    <text x="70" y="225" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">15</text>
+                    <text x="70" y="280" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">0</text>
+
+                    <!-- X-axis -->
+                    <text x="100" y="295" text-anchor="middle" fill="#6e6e73" font-size="10">Day 1</text>
+                    <text x="230" y="295" text-anchor="middle" fill="#6e6e73" font-size="10">Day 3</text>
+                    <text x="360" y="295" text-anchor="middle" fill="#6e6e73" font-size="10">Day 5</text>
+                    <text x="490" y="295" text-anchor="middle" fill="#6e6e73" font-size="10">Day 7</text>
+                    <text x="620" y="295" text-anchor="middle" fill="#6e6e73" font-size="10">Day 9</text>
+                    <text x="750" y="295" text-anchor="middle" fill="#6e6e73" font-size="10">Day 11</text>
+                    <text x="880" y="295" text-anchor="middle" fill="#6e6e73" font-size="10">Day 13</text>
+                    <text x="940" y="295" text-anchor="middle" fill="#6e6e73" font-size="10">Day 14</text>
+
+                    <!-- Ideal burndown line -->
+                    <line x1="100" y1="40" x2="940" y2="275" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+                    <!-- Actual burndown area -->
+                    <path d="M100,40 L165,50 L230,75 L295,90 L360,95 L425,130 L490,145 L555,160 L620,175 L685,200 L750,225 L815,245 L880,260 L940,275 L940,275 L100,275 Z" fill="url(#burnGrad)" opacity="0.3"/>
+                    <defs>
+                        <linearGradient id="burnGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#2997ff" stop-opacity="0.4"/>
+                            <stop offset="100%" stop-color="#2997ff" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Actual burndown line -->
+                    <polyline points="100,40 165,50 230,75 295,90 360,95 425,130 490,145 555,160 620,175 685,200 750,225 815,245 880,260 940,275" stroke="#2997ff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+                    <!-- Data points -->
+                    <circle cx="100" cy="40" r="4" fill="#2997ff"/>
+                    <circle cx="230" cy="75" r="4" fill="#2997ff"/>
+                    <circle cx="360" cy="95" r="4" fill="#2997ff"/>
+                    <circle cx="490" cy="145" r="4" fill="#2997ff"/>
+                    <circle cx="620" cy="175" r="4" fill="#2997ff"/>
+                    <circle cx="750" cy="225" r="4" fill="#2997ff"/>
+                    <circle cx="880" cy="260" r="4" fill="#2997ff"/>
+                    <circle cx="940" cy="275" r="5" fill="#30d158" stroke="white" stroke-width="2"/>
+
+                    <!-- Completion label -->
+                    <text x="940" y="268" text-anchor="middle" fill="#30d158" font-size="10" font-weight="600" font-family="-apple-system, sans-serif">✓ Done</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Burnup Chart -->
+        <div class="chart-section animate-on-scroll">
+            <div class="chart-header">
+                <div class="chart-title-group">
+                    <h3>Release Burnup</h3>
+                    <p>Work completed vs. total scope over time — shows scope creep</p>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item"><div class="legend-dot" style="background: var(--accent-green)"></div> Completed</div>
+                    <div class="legend-item"><div class="legend-dot" style="background: var(--accent-red)"></div> Total Scope</div>
+                    <div class="legend-item"><div class="legend-dot" style="background: var(--accent-orange); width: 16px; height: 2px; border-radius: 1px;"></div> Forecast</div>
+                </div>
+            </div>
+            <div class="chart-area">
+                <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Grid -->
+                    <line x1="80" y1="40" x2="950" y2="40" stroke="rgba(255,255,255,0.04)"/>
+                    <line x1="80" y1="100" x2="950" y2="100" stroke="rgba(255,255,255,0.04)"/>
+                    <line x1="80" y1="160" x2="950" y2="160" stroke="rgba(255,255,255,0.04)"/>
+                    <line x1="80" y1="220" x2="950" y2="220" stroke="rgba(255,255,255,0.04)"/>
+                    <line x1="80" y1="275" x2="950" y2="275" stroke="rgba(255,255,255,0.06)"/>
+
+                    <!-- Y-axis -->
+                    <text x="70" y="45" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">200</text>
+                    <text x="70" y="165" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">100</text>
+                    <text x="70" y="280" text-anchor="end" fill="#6e6e73" font-size="11" font-family="-apple-system, sans-serif">0</text>
+
+                    <!-- Scope line (with increase - scope creep) -->
+                    <polyline points="100,100 200,100 350,100 450,85 550,75 650,70 750,65 850,60 940,55" stroke="#ff453a" stroke-width="2" fill="none" stroke-dasharray="6,3"/>
+                    <text x="950" y="52" fill="#ff453a" font-size="10" font-weight="500" font-family="-apple-system, sans-serif">Scope</text>
+
+                    <!-- Completed work area -->
+                    <path d="M100,275 L200,260 L300,240 L400,215 L500,188 L600,158 L700,128 L800,100 L940,275 Z" fill="rgba(48,209,88,0.1)"/>
+
+                    <!-- Completed work line -->
+                    <polyline points="100,275 200,260 300,240 400,215 500,188 600,158 700,128 800,100" stroke="#30d158" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+                    <!-- Forecast line -->
+                    <polyline points="800,100 880,75 940,55" stroke="#ff9f0a" stroke-width="2" fill="none" stroke-dasharray="6,4"/>
+
+                    <!-- Scope change annotation -->
+                    <line x1="450" y1="85" x2="450" y2="200" stroke="rgba(255,69,58,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+                    <text x="455" y="195" fill="#ff453a" font-size="9" font-family="-apple-system, sans-serif">Scope Change +15SP</text>
+
+                    <!-- Convergence point -->
+                    <circle cx="940" cy="55" r="5" fill="#ff9f0a" stroke="white" stroke-width="2"/>
+                    <text x="930" y="48" text-anchor="end" fill="#ff9f0a" font-size="9" font-weight="600" font-family="-apple-system, sans-serif">Target ↗</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="metrics-grid animate-on-scroll">
+            <div class="metric-card card-purple">
+                <div class="metric-card-icon icon-purple">📉</div>
+                <h3>Sprint Burndown</h3>
+                <p>Shows remaining work in sprint. Tracks daily progress toward sprint goal completion. Reveals pace and impediments.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Axis-X</span><span class="metric-detail-value">Sprint Days</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Axis-Y</span><span class="metric-detail-value">Remaining SP / Hours</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Key Insight</span><span class="metric-detail-value">Above ideal = at risk</span></div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-purple">Scrum</span>
+                    <span class="metric-tag">Progress</span>
+                    <span class="metric-tag">Daily</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-purple">
+                <div class="metric-card-icon icon-purple">📈</div>
+                <h3>Sprint / Release Burnup</h3>
+                <p>Tracks work completed vs total scope over time. Superior to burndown as it reveals scope creep and scope changes.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Shows</span><span class="metric-detail-value">Scope + Progress</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Advantage</span><span class="metric-detail-value">Detects scope creep</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Forecast</span><span class="metric-detail-value">Converge projection</span></div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-purple">Release</span>
+                    <span class="metric-tag tag-green">Forecasting</span>
+                    <span class="metric-tag">Scope</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-purple">
+                <div class="metric-card-icon icon-purple">🔥</div>
+                <h3>Release Burndown</h3>
+                <p>Multi-sprint view showing remaining features/story points for an entire release. Uses velocity to forecast release date.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Timeframe</span><span class="metric-detail-value">Multi-sprint / PI</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Inputs</span><span class="metric-detail-value">Velocity + Backlog</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Output</span><span class="metric-detail-value">Forecasted date</span></div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-purple">PI Planning</span>
+                    <span class="metric-tag">SAFe</span>
+                    <span class="metric-tag">Release</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== DORA METRICS ===== -->
+    <section class="section" id="dora">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">🚀 Engineering Excellence</div>
+            <h2 class="section-title">DORA<br><span class="gradient-text">Four Key Metrics</span></h2>
+            <p class="section-desc">Google's DevOps Research and Assessment framework. The gold standard for measuring software delivery performance and organizational capability.</p>
+        </div>
+
+        <div class="dora-grid animate-on-scroll">
+            <!-- Deployment Frequency -->
+            <div class="dora-card">
+                <span class="dora-card-level level-elite">Speed</span>
+                <div class="dora-icon icon-green">🚀</div>
+                <h3>Deployment Frequency</h3>
+                <p>How often an organization successfully releases to production. High frequency indicates strong automation and confidence.</p>
+                <div class="dora-tiers">
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-green);">Elite</div>
+                        <div class="dora-tier-value">On-demand (multiple/day)</div>
+                    </div>
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-blue);">High</div>
+                        <div class="dora-tier-value">Daily to Weekly</div>
+                    </div>
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-orange);">Medium</div>
+                        <div class="dora-tier-value">Weekly to Monthly</div>
+                    </div>
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-red);">Low</div>
+                        <div class="dora-tier-value">Monthly to Biannually</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lead Time for Changes -->
+            <div class="dora-card">
+                <span class="dora-card-level level-elite">Speed</span>
+                <div class="dora-icon icon-blue">⏱️</div>
+                <h3>Lead Time for Changes</h3>
+                <p>Time from code commit to successful production deployment. Measures the efficiency of your delivery pipeline.</p>
+                <div class="dora-tiers">
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-green);">Elite</div>
+                        <div class="dora-tier-value">Less than 1 hour</div>
+                    </div>
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-blue);">High</div>
+                        <div class="dora-tier-value">1 day to 1 week</div>
+                    </div>
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-orange);">Medium</div>
+                        <div class="dora-tier-value">1 week to 1 month</div>
+                    </div>
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-red);">Low</div>
+                        <div class="dora-tier-value">1 month to 6 months</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MTTR -->
+            <div class="dora-card">
+                <span class="dora-card-level level-high">Stability</span>
+                <div class="dora-icon icon-orange">🔧</div>
+                <h3>Mean Time to Recovery (MTTR)</h3>
+                <p>How long it takes to restore service after a production incident. Measures resilience and incident response capability.</p>
+                <div class="dora-tiers">
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-green);">Elite</div>
+                        <div class="dora-tier-value">Less than 1 hour</div>
+                    </div>
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-blue);">High</div>
+                        <div class="dora-tier-value">Less than 1 day</div>
+                    </div>
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-orange);">Medium</div>
+                        <div class="dora-tier-value">Less than 1 week</div>
+                    </div>
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-red);">Low</div>
+                        <div class="dora-tier-value">More than 6 months</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Change Failure Rate -->
+            <div class="dora-card">
+                <span class="dora-card-level level-high">Stability</span>
+                <div class="dora-icon icon-red">💥</div>
+                <h3>Change Failure Rate (CFR)</h3>
+                <p>Percentage of deployments causing a failure in production requiring remediation. Measures deployment quality.</p>
+                <div class="dora-tiers">
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-green);">Elite</div>
+                        <div class="dora-tier-value">0–5%</div>
+                    </div>
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-blue);">High</div>
+                        <div class="dora-tier-value">5–10%</div>
+                    </div>
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-orange);">Medium</div>
+                        <div class="dora-tier-value">10–15%</div>
+                    </div>
+                    <div class="dora-tier">
+                        <div class="dora-tier-label" style="color: var(--accent-red);">Low</div>
+                        <div class="dora-tier-value">15–64%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DORA + SPACE Mapping -->
+        <div class="chart-section animate-on-scroll" style="margin-top: 40px;">
+            <div class="chart-header">
+                <div class="chart-title-group">
+                    <h3>DORA Performance Classification</h3>
+                    <p>Where does your team stand? Map against Google's research benchmarks.</p>
+                </div>
+            </div>
+            <div class="comparison-table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Elite</th>
+                            <th>High</th>
+                            <th>Medium</th>
+                            <th>Low</th>
+                            <th>Your Team</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Deployment Frequency</strong></td>
+                            <td><span class="status-badge status-green">On-demand</span></td>
+                            <td>Daily–Weekly</td>
+                            <td>Weekly–Monthly</td>
+                            <td>Monthly–Biannual</td>
+                            <td><span class="status-badge status-blue">Daily</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lead Time for Changes</strong></td>
+                            <td><span class="status-badge status-green">&lt; 1 hour</span></td>
+                            <td>1 day–1 week</td>
+                            <td>1 week–1 month</td>
+                            <td>1–6 months</td>
+                            <td><span class="status-badge status-green">4 hours</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>MTTR</strong></td>
+                            <td><span class="status-badge status-green">&lt; 1 hour</span></td>
+                            <td>&lt; 1 day</td>
+                            <td>&lt; 1 week</td>
+                            <td>&gt; 6 months</td>
+                            <td><span class="status-badge status-blue">2 hours</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Change Failure Rate</strong></td>
+                            <td><span class="status-badge status-green">0–5%</span></td>
+                            <td>5–10%</td>
+                            <td>10–15%</td>
+                            <td>15–64%</td>
+                            <td><span class="status-badge status-green">3%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== FLOW METRICS ===== -->
+    <section class="section" id="flow">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">🌊 Lean & Flow</div>
+            <h2 class="section-title">Flow &<br><span class="gradient-text">Cycle Time Metrics</span></h2>
+            <p class="section-desc">Kanban-inspired metrics measuring the efficiency of your value stream from idea to delivery.</p>
+        </div>
+
+        <!-- Flow Diagram -->
+        <div class="chart-section animate-on-scroll">
+            <div class="chart-header">
+                <div class="chart-title-group">
+                    <h3>Value Stream Flow</h3>
+                    <p>End-to-end flow from backlog to production with key metric measurement points</p>
+                </div>
+            </div>
+            <div class="flow-container">
+                <div class="flow-node mm-purple" style="border-color: rgba(191,90,242,0.4);">📋 Backlog</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node mm-blue" style="border-color: rgba(41,151,255,0.4);">📝 Analysis</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node mm-teal" style="border-color: rgba(100,210,255,0.4);">💻 Development</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node mm-orange" style="border-color: rgba(255,159,10,0.4);">🧪 Testing</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node mm-indigo" style="border-color: rgba(94,92,230,0.4);">👁️ Review</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node mm-green" style="border-color: rgba(48,209,88,0.4);">🚀 Deploy</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node mm-pink" style="border-color: rgba(255,55,95,0.4);">📊 Monitor</div>
+            </div>
+            <div style="text-align: center; margin-top: 16px;">
+                <div style="display: inline-flex; gap: 40px; font-size: 13px; color: var(--text-secondary);">
+                    <span>← <strong style="color: var(--accent-teal);">Lead Time</strong> (End-to-end) →</span>
+                </div>
+                <br>
+                <div style="display: inline-flex; gap: 40px; font-size: 12px; color: var(--text-tertiary); margin-top: 8px;">
+                    <span>← <strong style="color: var(--accent-blue);">Cycle Time</strong> (Dev → Deploy) →</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="metrics-grid animate-on-scroll">
+            <div class="metric-card card-blue">
+                <div class="metric-card-icon icon-teal">⏱️</div>
+                <h3>Cycle Time</h3>
+                <p>Time from when work begins (in progress) to when it's completed. The most actionable flow metric for teams.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Measures</span><span class="metric-detail-value">Work Start → Done</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Target</span><span class="metric-detail-value" style="color: var(--accent-green);">Decreasing trend</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Visualize</span><span class="metric-detail-value">Scatter plot + percentile</span></div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-blue">Kanban</span>
+                    <span class="metric-tag tag-green">Flow</span>
+                    <span class="metric-tag">Little's Law</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-blue">
+                <div class="metric-card-icon icon-teal">📏</div>
+                <h3>Lead Time</h3>
+                <p>Total time from when a request is made to when it's delivered. Includes queue/wait time before work begins.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Measures</span><span class="metric-detail-value">Request → Delivered</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Includes</span><span class="metric-detail-value">Wait + Work Time</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Relationship</span><span class="metric-detail-value">Lead = Wait + Cycle</span></div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-blue">Lean</span>
+                    <span class="metric-tag tag-green">Customer-facing</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-blue">
+                <div class="metric-card-icon icon-teal">🚧</div>
+                <h3>Work In Progress (WIP)</h3>
+                <p>Number of items currently being worked on simultaneously. Directly correlates with cycle time via Little's Law.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Little's Law</span><span class="metric-detail-value" style="color: var(--accent-teal);">CT = WIP / Throughput</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Guideline</span><span class="metric-detail-value">WIP ≤ Team Size × 1.5</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Risk</span><span class="metric-detail-value" style="color: var(--accent-red);">High WIP = Context Switching</span></div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-blue">Kanban</span>
+                    <span class="metric-tag">Constraints</span>
+                    <span class="metric-tag tag-orange">Bottleneck</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-blue">
+                <div class="metric-card-icon icon-teal">📊</div>
+                <h3>Cumulative Flow Diagram (CFD)</h3>
+                <p>Stacked area chart showing items in each workflow state over time. Reveals bottlenecks, WIP trends, and flow stability.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Bands</span><span class="metric-detail-value">Each workflow state</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Widening Band</span><span class="metric-detail-value" style="color: var(--accent-red);">Bottleneck!</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Flat Top Line</span><span class="metric-detail-value" style="color: var(--accent-orange);">No new input</span></div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-blue">Kanban</span>
+                    <span class="metric-tag tag-orange">Diagnostics</span>
+                    <span class="metric-tag">Visual</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-blue">
+                <div class="metric-card-icon icon-teal">⚖️</div>
+                <h3>Flow Efficiency</h3>
+                <p>Ratio of active work time to total lead time. Reveals how much time items spend waiting vs. being actively worked on.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Formula</span><span class="metric-detail-value" style="color: var(--accent-teal);">Work Time / Lead Time × 100</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Industry Avg</span><span class="metric-detail-value">15–25%</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Good</span><span class="metric-detail-value" style="color: var(--accent-green);">> 40%</span></div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-blue">Lean</span>
+                    <span class="metric-tag tag-green">Efficiency</span>
+                    <span class="metric-tag">Waste</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-blue">
+                <div class="metric-card-icon icon-teal">🔁</div>
+                <h3>Flow Distribution</h3>
+                <p>Breakdown of work types: features, bugs, tech debt, risks. Ensures balanced investment across work categories.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Ideal Mix</span><span class="metric-detail-value">Features 60% / Debt 20% / Bugs 15% / Risks 5%</span></div>
+                </div>
+                <div class="metric-tags">
+                    <span class="metric-tag tag-blue">SAFe</span>
+                    <span class="metric-tag tag-purple">Portfolio</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== QUALITY METRICS ===== -->
+    <section class="section" id="quality">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">🛡️ Code & Product Quality</div>
+            <h2 class="section-title">Quality<br><span class="gradient-text">Metrics</span></h2>
+            <p class="section-desc">Comprehensive quality measurements spanning code health, testing effectiveness, and production stability.</p>
+        </div>
+
+        <div class="metrics-grid animate-on-scroll">
+            <div class="metric-card card-orange">
+                <div class="metric-card-icon icon-orange">🐛</div>
+                <h3>Defect Density</h3>
+                <p>Number of confirmed defects per unit of code size (e.g., per KLOC or per function point).</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Formula</span><span class="metric-detail-value" style="color: var(--accent-teal);">Defects / KLOC</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Good</span><span class="metric-detail-value" style="color: var(--accent-green);">< 1 per KLOC</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Critical</span><span class="metric-detail-value" style="color: var(--accent-red);">> 5 per KLOC</span></div>
+                </div>
+            </div>
+
+            <div class="metric-card card-orange">
+                <div class="metric-card-icon icon-orange">✅</div>
+                <h3>Code Coverage</h3>
+                <p>Percentage of codebase exercised by automated tests. Includes line, branch, and function coverage.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Target</span><span class="metric-detail-value" style="color: var(--accent-green);">≥ 80%</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Warning</span><span class="metric-detail-value" style="color: var(--accent-orange);">< 60%</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Note</span><span class="metric-detail-value">Coverage ≠ quality</span></div>
+                </div>
+            </div>
+
+            <div class="metric-card card-orange">
+                <div class="metric-card-icon icon-orange">🏗️</div>
+                <h3>Technical Debt Ratio</h3>
+                <p>Estimated cost to fix code quality issues vs. cost to rewrite. Tracked by tools like SonarQube.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Formula</span><span class="metric-detail-value" style="color: var(--accent-teal);">Remediation Cost / Dev Cost</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Healthy</span><span class="metric-detail-value" style="color: var(--accent-green);">< 5%</span></div>
+                </div>
+            </div>
+
+            <div class="metric-card card-orange">
+                <div class="metric-card-icon icon-orange">🚪</div>
+                <h3>Escaped Defects</h3>
+                <p>Bugs found by customers in production that were not caught during testing phases.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Formula</span><span class="metric-detail-value" style="color: var(--accent-teal);">Prod Bugs / Total Bugs × 100</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Target</span><span class="metric-detail-value" style="color: var(--accent-green);">< 10%</span></div>
+                </div>
+            </div>
+
+            <div class="metric-card card-orange">
+                <div class="metric-card-icon icon-orange">🧪</div>
+                <h3>Test Pass Rate</h3>
+                <p>Percentage of automated test cases that pass in a given test run or build cycle.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Target</span><span class="metric-detail-value" style="color: var(--accent-green);">≥ 98%</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Investigate</span><span class="metric-detail-value" style="color: var(--accent-orange);">< 95%</span></div>
+                </div>
+            </div>
+
+            <div class="metric-card card-orange">
+                <div class="metric-card-icon icon-orange">🔍</div>
+                <h3>Code Review Metrics</h3>
+                <p>PR size, review turnaround, comments per PR, rework rate. Measures code review effectiveness.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Ideal PR Size</span><span class="metric-detail-value" style="color: var(--accent-green);">< 400 LOC</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Review Time</span><span class="metric-detail-value">< 24 hours</span></div>
+                </div>
+            </div>
+
+            <div class="metric-card card-orange">
+                <div class="metric-card-icon icon-orange">📊</div>
+                <h3>Code Complexity (Cyclomatic)</h3>
+                <p>McCabe complexity measuring the number of linearly independent paths through code. High complexity = higher risk.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Simple</span><span class="metric-detail-value" style="color: var(--accent-green);">1–10</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Complex</span><span class="metric-detail-value" style="color: var(--accent-orange);">11–20</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">High Risk</span><span class="metric-detail-value" style="color: var(--accent-red);">> 20</span></div>
+                </div>
+            </div>
+
+            <div class="metric-card card-orange">
+                <div class="metric-card-icon icon-orange">🛡️</div>
+                <h3>Security Vulnerability Density</h3>
+                <p>Number of known vulnerabilities per component or per KLOC. Tracked via SAST/DAST tools.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Critical</span><span class="metric-detail-value" style="color: var(--accent-red);">0 tolerated</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">MTTR for CVE</span><span class="metric-detail-value">< 48 hours</span></div>
+                </div>
+            </div>
+
+            <div class="metric-card card-orange">
+                <div class="metric-card-icon icon-orange">🔄</div>
+                <h3>Rework Rate</h3>
+                <p>Percentage of completed stories that require rework or are reopened. Indicates first-time quality.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Formula</span><span class="metric-detail-value" style="color: var(--accent-teal);">Reopened / Completed × 100</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Target</span><span class="metric-detail-value" style="color: var(--accent-green);">< 5%</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== AI & AUTOMATION METRICS ===== -->
+    <section class="section" id="ai-metrics">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">🤖 Next Generation</div>
+            <h2 class="section-title">AI & Automation<br><span class="gradient-text">Metrics</span></h2>
+            <p class="section-desc">Emerging metrics for teams leveraging AI-assisted development, ML pipelines, and intelligent automation.</p>
+        </div>
+
+        <div class="ai-metrics-container animate-on-scroll">
+            <div class="ai-metric-card">
+                <h4>🧠 Copilot Acceptance Rate</h4>
+                <p>Percentage of AI code suggestions accepted by developers. Indicates trust and quality of AI assistance. Target: 25–40%.</p>
+            </div>
+            <div class="ai-metric-card">
+                <h4>⚡ AI Code Generation %</h4>
+                <p>Proportion of shipped code initially generated by AI tools. Track lines/functions generated vs hand-written.</p>
+            </div>
+            <div class="ai-metric-card">
+                <h4>🔍 AI Review Accuracy</h4>
+                <p>Precision/recall of AI-powered code review bots. Measures false positive rate and real issues caught.</p>
+            </div>
+            <div class="ai-metric-card">
+                <h4>🧪 Auto-Test Generation Coverage</h4>
+                <p>Percentage of test cases auto-generated by AI. Tracks how much test writing is augmented or automated.</p>
+            </div>
+            <div class="ai-metric-card">
+                <h4>📉 ML Model Drift Score</h4>
+                <p>Statistical distance between training and production data distributions. Triggers retraining when threshold exceeded.</p>
+            </div>
+            <div class="ai-metric-card">
+                <h4>🎯 AI Prediction Accuracy</h4>
+                <p>Accuracy of AI-based sprint forecasting, bug prediction, or effort estimation models.</p>
+            </div>
+            <div class="ai-metric-card">
+                <h4>⏱️ Time Saved by AI</h4>
+                <p>Hours saved per developer per week through AI tools (code generation, review, testing, documentation).</p>
+            </div>
+            <div class="ai-metric-card">
+                <h4>🔄 AI Pipeline Reliability</h4>
+                <p>Success rate of ML training/inference pipelines. Tracks failures, latency, and resource utilization.</p>
+            </div>
+            <div class="ai-metric-card">
+                <h4>💡 Developer AI Satisfaction</h4>
+                <p>NPS/satisfaction score for AI tools. Measures perceived value and friction in AI-assisted workflows.</p>
+            </div>
+            <div class="ai-metric-card">
+                <h4>🛡️ AI Security Scan Rate</h4>
+                <p>Percentage of code automatically scanned by AI security tools before merge. Target: 100%.</p>
+            </div>
+            <div class="ai-metric-card">
+                <h4>📊 Intelligent Alerting Precision</h4>
+                <p>Signal-to-noise ratio of AI-generated alerts vs. false positives in monitoring systems.</p>
+            </div>
+            <div class="ai-metric-card">
+                <h4>🤖 Automation Coverage Index</h4>
+                <p>Percentage of repetitive tasks (build, deploy, test, rollback) that are fully automated. Target: > 90%.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== COMPREHENSIVE DASHBOARD ===== -->
+    <section class="section" id="dashboard">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">📊 Executive View</div>
+            <h2 class="section-title">Metrics<br><span class="gradient-text">Dashboard</span></h2>
+            <p class="section-desc">A unified view of key metrics as seen in enterprise tools like Jira, Azure DevOps, Datadog, and custom dashboards.</p>
+        </div>
+
+        <div class="dashboard-preview animate-on-scroll">
+            <div class="dashboard-top-bar">
+                <div class="dashboard-title">🏠 Engineering Metrics Dashboard</div>
+                <div class="dashboard-filters">
+                    <button class="filter-btn active">Sprint 10</button>
+                    <button class="filter-btn">Last 30 Days</button>
+                    <button class="filter-btn">Q4 2024</button>
+                    <button class="filter-btn">YTD</button>
+                </div>
+            </div>
+
+            <div class="dashboard-kpi-row">
+                <div class="kpi-widget">
+                    <div class="kpi-value" style="color: var(--accent-blue);">47</div>
+                    <div class="kpi-label">Sprint Velocity</div>
+                    <div class="kpi-trend trend-up">↑ 12% vs avg</div>
+                </div>
+                <div class="kpi-widget">
+                    <div class="kpi-value" style="color: var(--accent-green);">3.2d</div>
+                    <div class="kpi-label">Avg Cycle Time</div>
+                    <div class="kpi-trend trend-up">↓ 18% improved</div>
+                </div>
+                <div class="kpi-widget">
+                    <div class="kpi-value" style="color: var(--accent-purple);">12x</div>
+                    <div class="kpi-label">Deploy Frequency</div>
+                    <div class="kpi-trend trend-up">↑ per week</div>
+                </div>
+                <div class="kpi-widget">
+                    <div class="kpi-value" style="color: var(--accent-orange);">2.1%</div>
+                    <div class="kpi-label">Change Failure Rate</div>
+                    <div class="kpi-trend trend-up">↓ Elite level</div>
+                </div>
+                <div class="kpi-widget">
+                    <div class="kpi-value" style="color: var(--accent-teal);">87%</div>
+                    <div class="kpi-label">Code Coverage</div>
+                    <div class="kpi-trend trend-up">↑ 3% this sprint</div>
+                </div>
+            </div>
+
+            <div class="dashboard-charts-row">
+                <div class="dashboard-chart-widget">
+                    <h4>Velocity Sparkline (Last 10 Sprints)</h4>
+                    <div class="sparkline-bar" style="height: 80px;">
+                        <span style="height: 55%"></span>
+                        <span style="height: 62%"></span>
+                        <span style="height: 70%"></span>
+                        <span style="height: 58%"></span>
+                        <span style="height: 75%"></span>
+                        <span style="height: 78%"></span>
+                        <span style="height: 72%"></span>
+                        <span style="height: 85%"></span>
+                        <span style="height: 90%"></span>
+                        <span style="height: 94%; background: var(--accent-green);"></span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-tertiary); margin-top: 8px;">
+                        <span>S1</span><span>S2</span><span>S3</span><span>S4</span><span>S5</span><span>S6</span><span>S7</span><span>S8</span><span>S9</span><span>S10</span>
+                    </div>
+                </div>
+                <div class="dashboard-chart-widget">
+                    <h4>DORA Performance Score</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 8px;">
+                        <div style="text-align: center; padding: 16px; background: rgba(48,209,88,0.08); border-radius: 12px;">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--accent-green);">Elite</div>
+                            <div style="font-size: 11px; color: var(--text-tertiary);">Deploy Freq</div>
+                        </div>
+                        <div style="text-align: center; padding: 16px; background: rgba(48,209,88,0.08); border-radius: 12px;">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--accent-green);">Elite</div>
+                            <div style="font-size: 11px; color: var(--text-tertiary);">Lead Time</div>
+                        </div>
+                        <div style="text-align: center; padding: 16px; background: rgba(41,151,255,0.08); border-radius: 12px;">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--accent-blue);">High</div>
+                            <div style="font-size: 11px; color: var(--text-tertiary);">MTTR</div>
+                        </div>
+                        <div style="text-align: center; padding: 16px; background: rgba(48,209,88,0.08); border-radius: 12px;">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--accent-green);">Elite</div>
+                            <div style="font-size: 11px; color: var(--text-tertiary);">CFR</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional KPI row -->
+            <div class="dashboard-kpi-row" style="margin-top: 24px;">
+                <div class="kpi-widget">
+                    <div class="kpi-value" style="color: var(--accent-pink);">92%</div>
+                    <div class="kpi-label">Sprint Goal Hit</div>
+                    <div class="kpi-trend trend-up">↑ 8% vs last Q</div>
+                </div>
+                <div class="kpi-widget">
+                    <div class="kpi-value" style="color: var(--accent-indigo);">4.2</div>
+                    <div class="kpi-label">WIP Items</div>
+                    <div class="kpi-trend trend-neutral">→ Stable</div>
+                </div>
+                <div class="kpi-widget">
+                    <div class="kpi-value" style="color: var(--accent-teal);">38%</div>
+                    <div class="kpi-label">Flow Efficiency</div>
+                    <div class="kpi-trend trend-up">↑ Above industry avg</div>
+                </div>
+                <div class="kpi-widget">
+                    <div class="kpi-value" style="color: var(--accent-yellow);">3.8%</div>
+                    <div class="kpi-label">Rework Rate</div>
+                    <div class="kpi-trend trend-up">↓ Improving</div>
+                </div>
+                <div class="kpi-widget">
+                    <div class="kpi-value" style="color: var(--accent-green);">8.5</div>
+                    <div class="kpi-label">Team Happiness</div>
+                    <div class="kpi-trend trend-up">↑ /10 score</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== FORMULAS REFERENCE ===== -->
+    <section class="section" id="formulas">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">📐 Mathematical Reference</div>
+            <h2 class="section-title">Key<br><span class="gradient-text">Formulas</span></h2>
+            <p class="section-desc">Every critical formula and calculation you need for agile metrics implementation.</p>
+        </div>
+
+        <div class="formula-grid animate-on-scroll">
+            <div class="formula-card">
+                <h4>⚡ Sprint Velocity</h4>
+                <div class="formula-expression">V = Σ(SP_completed) per sprint</div>
+                <p>Sum of story points for all user stories marked "Done" by sprint end.</p>
+            </div>
+            <div class="formula-card">
+                <h4>📊 Velocity Variance</h4>
+                <div class="formula-expression">CV = (σ / μ) × 100%</div>
+                <p>Coefficient of variation. σ = standard deviation, μ = mean velocity.</p>
+            </div>
+            <div class="formula-card">
+                <h4>⏱️ Cycle Time</h4>
+                <div class="formula-expression">CT = Date_Done - Date_InProgress</div>
+                <p>Calendar days from "In Progress" to "Done" for each work item.</p>
+            </div>
+            <div class="formula-card">
+                <h4>📏 Lead Time</h4>
+                <div class="formula-expression">LT = Date_Done - Date_Created</div>
+                <p>Total elapsed time from request creation to delivery.</p>
+            </div>
+            <div class="formula-card">
+                <h4>🔄 Little's Law</h4>
+                <div class="formula-expression">CT = WIP / Throughput</div>
+                <p>Fundamental law: Cycle Time = Work in Progress ÷ Throughput. Reduce WIP to reduce CT.</p>
+            </div>
+            <div class="formula-card">
+                <h4>⚖️ Flow Efficiency</h4>
+                <div class="formula-expression">FE = (Active_Work_Time / Lead_Time) × 100%</div>
+                <p>Percentage of total time items are actively worked on vs. waiting.</p>
+            </div>
+            <div class="formula-card">
+                <h4>🐛 Defect Density</h4>
+                <div class="formula-expression">DD = Total_Defects / KLOC</div>
+                <p>Defects per thousand lines of code. KLOC = Lines of Code / 1000.</p>
+            </div>
+            <div class="formula-card">
+                <h4>🏗️ Technical Debt Ratio</h4>
+                <div class="formula-expression">TDR = Remediation_Cost / Dev_Cost × 100%</div>
+                <p>Cost to fix all code smells, vulnerabilities ÷ total development cost.</p>
+            </div>
+            <div class="formula-card">
+                <h4>💥 Change Failure Rate</h4>
+                <div class="formula-expression">CFR = Failed_Deploys / Total_Deploys × 100%</div>
+                <p>DORA metric: percentage of deployments causing incidents.</p>
+            </div>
+            <div class="formula-card">
+                <h4>🚀 Deployment Frequency</h4>
+                <div class="formula-expression">DF = Successful_Deployments / Time_Period</div>
+                <p>DORA metric: How often you deploy to production.</p>
+            </div>
+            <div class="formula-card">
+                <h4>🎯 Commitment Reliability</h4>
+                <div class="formula-expression">CR = Delivered_SP / Committed_SP × 100%</div>
+                <p>Percentage of sprint commitment actually delivered.</p>
+            </div>
+            <div class="formula-card">
+                <h4>📈 Throughput</h4>
+                <div class="formula-expression">TP = Items_Completed / Time_Period</div>
+                <p>Items delivered per day/week/sprint. Size-agnostic velocity.</p>
+            </div>
+            <div class="formula-card">
+                <h4>🔧 MTTR</h4>
+                <div class="formula-expression">MTTR = Σ(Recovery_Times) / Number_of_Incidents</div>
+                <p>Average time to restore service after failure.</p>
+            </div>
+            <div class="formula-card">
+                <h4>⏰ MTTD (Mean Time to Detect)</h4>
+                <div class="formula-expression">MTTD = Σ(Detection_Times) / Incidents</div>
+                <p>Average time between incident occurrence and detection.</p>
+            </div>
+            <div class="formula-card">
+                <h4>📊 Sprint Burndown Rate</h4>
+                <div class="formula-expression">Ideal = Total_SP / Sprint_Days<br>Actual = SP_Remaining per day</div>
+                <p>Compare actual daily burn rate against ideal linear rate.</p>
+            </div>
+            <div class="formula-card">
+                <h4>🤖 AI Acceptance Rate</h4>
+                <div class="formula-expression">AAR = Accepted_Suggestions / Total_Suggestions × 100%</div>
+                <p>Percentage of AI-generated code suggestions accepted by developers.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== FRAMEWORKS ===== -->
+    <section class="section" id="frameworks">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">🏗️ Metric Frameworks</div>
+            <h2 class="section-title">Popular<br><span class="gradient-text">Frameworks</span></h2>
+            <p class="section-desc">Industry-standard frameworks for organizing, categorizing, and implementing agile metrics effectively.</p>
+        </div>
+
+        <div class="framework-cards animate-on-scroll">
+            <div class="framework-card">
+                <h4>🚀 DORA (Google)</h4>
+                <ul>
+                    <li>Deployment Frequency</li>
+                    <li>Lead Time for Changes</li>
+                    <li>Mean Time to Recovery</li>
+                    <li>Change Failure Rate</li>
+                    <li>+ Reliability (5th metric, 2024)</li>
+                </ul>
+            </div>
+            <div class="framework-card">
+                <h4>🧑‍🚀 SPACE (GitHub/Microsoft)</h4>
+                <ul>
+                    <li><strong>S</strong>atisfaction & Wellbeing</li>
+                    <li><strong>P</strong>erformance</li>
+                    <li><strong>A</strong>ctivity</li>
+                    <li><strong>C</strong>ommunication & Collaboration</li>
+                    <li><strong>E</strong>fficiency & Flow</li>
+                </ul>
+            </div>
+            <div class="framework-card">
+                <h4>🌊 Flow Framework (Tasktop)</h4>
+                <ul>
+                    <li>Flow Velocity (items completed)</li>
+                    <li>Flow Time (from start to done)</li>
+                    <li>Flow Efficiency (active vs wait)</li>
+                    <li>Flow Load (WIP)</li>
+                    <li>Flow Distribution (work type mix)</li>
+                </ul>
+            </div>
+            <div class="framework-card">
+                <h4>📊 Spotify Health Check</h4>
+                <ul>
+                    <li>Mission alignment</li>
+                    <li>Delivery speed</li>
+                    <li>Code health & quality</li>
+                    <li>Fun & learning</li>
+                    <li>Support & teamwork</li>
+                    <li>Process suitability</li>
+                </ul>
+            </div>
+            <div class="framework-card">
+                <h4>🎯 OKRs + Metrics</h4>
+                <ul>
+                    <li>Objectives: Qualitative goals</li>
+                    <li>Key Results: Measurable outcomes</li>
+                    <li>Leading Indicators: Predict success</li>
+                    <li>Lagging Indicators: Confirm outcome</li>
+                    <li>Metric linkage per OKR</li>
+                </ul>
+            </div>
+            <div class="framework-card">
+                <h4>⚖️ Balanced Scorecard (Agile)</h4>
+                <ul>
+                    <li>Customer: NPS, satisfaction, adoption</li>
+                    <li>Internal: Velocity, quality, cycle time</li>
+                    <li>Learning: Skills growth, innovation</li>
+                    <li>Financial: Cost per feature, ROI</li>
+                </ul>
+            </div>
+            <div class="framework-card">
+                <h4>🏔️ SAFe Metrics</h4>
+                <ul>
+                    <li>Program Predictability Measure</li>
+                    <li>PI Objectives (Business Value)</li>
+                    <li>Feature Cycle Time</li>
+                    <li>Release Frequency</li>
+                    <li>Continuous Exploration metrics</li>
+                </ul>
+            </div>
+            <div class="framework-card">
+                <h4>📈 Evidence-Based Management (EBM)</h4>
+                <ul>
+                    <li>Current Value (customer satisfaction)</li>
+                    <li>Unrealized Value (market potential)</li>
+                    <li>Ability to Innovate (tech debt, skills)</li>
+                    <li>Time to Market (release frequency)</li>
+                </ul>
+            </div>
+            <div class="framework-card">
+                <h4>🛡️ DevSecOps Metrics</h4>
+                <ul>
+                    <li>Vulnerability density per release</li>
+                    <li>MTTR for security issues</li>
+                    <li>Security scan coverage %</li>
+                    <li>Compliance automation rate</li>
+                    <li>Supply chain security score</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== MATURITY MODEL ===== -->
+    <section class="section">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">🏔️ Growth Journey</div>
+            <h2 class="section-title">Metrics<br><span class="gradient-text">Maturity Model</span></h2>
+            <p class="section-desc">A 5-stage progression model for adopting metrics — from ad-hoc tracking to predictive intelligence.</p>
+        </div>
+
+        <div class="maturity-track animate-on-scroll">
+            <div class="maturity-stage" style="border-color: rgba(255,69,58,0.3); background: rgba(255,69,58,0.04);">
+                <div class="stage-level" style="color: var(--accent-red);">Level 1</div>
+                <h4>Ad Hoc</h4>
+                <ul>
+                    <li>No consistent tracking</li>
+                    <li>Manual spreadsheets</li>
+                    <li>Gut-feel decisions</li>
+                    <li>No baselines</li>
+                </ul>
+            </div>
+            <div class="maturity-stage" style="border-color: rgba(255,159,10,0.3); background: rgba(255,159,10,0.04);">
+                <div class="stage-level" style="color: var(--accent-orange);">Level 2</div>
+                <h4>Defined</h4>
+                <ul>
+                    <li>Basic velocity tracking</li>
+                    <li>Sprint burndown charts</li>
+                    <li>Defect counts</li>
+                    <li>Manual dashboards</li>
+                </ul>
+            </div>
+            <div class="maturity-stage" style="border-color: rgba(41,151,255,0.3); background: rgba(41,151,255,0.04);">
+                <div class="stage-level" style="color: var(--accent-blue);">Level 3</div>
+                <h4>Managed</h4>
+                <ul>
+                    <li>DORA metrics tracked</li>
+                    <li>Flow metrics (CFD, CT)</li>
+                    <li>Automated collection</li>
+                    <li>Team-level dashboards</li>
+                </ul>
+            </div>
+            <div class="maturity-stage" style="border-color: rgba(191,90,242,0.3); background: rgba(191,90,242,0.04);">
+                <div class="stage-level" style="color: var(--accent-purple);">Level 4</div>
+                <h4>Optimized</h4>
+                <ul>
+                    <li>Cross-team correlation</li>
+                    <li>Quality + velocity balance</li>
+                    <li>Business value metrics</li>
+                    <li>Continuous improvement</li>
+                </ul>
+            </div>
+            <div class="maturity-stage" style="border-color: rgba(48,209,88,0.3); background: rgba(48,209,88,0.04);">
+                <div class="stage-level" style="color: var(--accent-green);">Level 5</div>
+                <h4>Predictive</h4>
+                <ul>
+                    <li>AI-powered forecasting</li>
+                    <li>Anomaly detection</li>
+                    <li>Predictive risk analysis</li>
+                    <li>Self-healing systems</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== ANTI-PATTERNS ===== -->
+    <section class="section">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">⚠️ Critical Warnings</div>
+            <h2 class="section-title">Metrics<br><span class="gradient-text">Anti-Patterns</span></h2>
+            <p class="section-desc">Common mistakes that turn metrics into weapons. Avoid these pitfalls to maintain trust and effectiveness.</p>
+        </div>
+
+        <div class="antipattern-grid animate-on-scroll">
+            <div class="antipattern-card">
+                <h4>⚠️ Vanity Metrics</h4>
+                <p>Tracking metrics that look good but don't drive decisions. Lines of code, total commits, hours logged — these rarely correlate with value delivered.</p>
+            </div>
+            <div class="antipattern-card">
+                <h4>⚠️ Gaming the System</h4>
+                <p>When velocity becomes a target, teams inflate story points. "Goodhart's Law: When a measure becomes a target, it ceases to be a good measure."</p>
+            </div>
+            <div class="antipattern-card">
+                <h4>⚠️ Comparing Team Velocities</h4>
+                <p>Velocity is team-specific. Comparing Team A's 50 SP vs Team B's 30 SP is meaningless — story point calibration differs between teams.</p>
+            </div>
+            <div class="antipattern-card">
+                <h4>⚠️ Metric Overload</h4>
+                <p>Tracking too many metrics creates noise and analysis paralysis. Start with 3–5 key metrics per team, then evolve gradually.</p>
+            </div>
+            <div class="antipattern-card">
+                <h4>⚠️ Individual Performance Metrics</h4>
+                <p>Using agile metrics (velocity, commits, PRs) for individual performance reviews destroys collaboration and trust. Measure teams, not individuals.</p>
+            </div>
+            <div class="antipattern-card">
+                <h4>⚠️ Ignoring Context</h4>
+                <p>A velocity drop might mean: team member on leave, harder work, tech debt paydown, or onboarding. Always investigate before reacting.</p>
+            </div>
+            <div class="antipattern-card">
+                <h4>⚠️ Output Over Outcomes</h4>
+                <p>Measuring features shipped without tracking feature adoption, user satisfaction, or business impact. 10 features nobody uses = zero value.</p>
+            </div>
+            <div class="antipattern-card">
+                <h4>⚠️ Coverage Theater</h4>
+                <p>Chasing 100% code coverage without meaningful assertions. High coverage with poor test design gives false confidence in quality.</p>
+            </div>
+            <div class="antipattern-card">
+                <h4>⚠️ Lagging-Only Measurement</h4>
+                <p>Only tracking results (bugs found, releases shipped) without leading indicators (WIP, code complexity growth, test health) that predict problems early.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== BEST PRACTICES ===== -->
+    <section class="section">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">✅ Proven Strategies</div>
+            <h2 class="section-title">Best<br><span class="gradient-text">Practices</span></h2>
+            <p class="section-desc">Research-backed principles from Google, Spotify, Amazon, and Netflix for metrics that actually improve outcomes.</p>
+        </div>
+
+        <div class="bestpractice-list animate-on-scroll">
+            <div class="bestpractice-item">
+                <div class="bestpractice-num">1</div>
+                <div class="bestpractice-content">
+                    <h4>Measure Outcomes, Not Output</h4>
+                    <p>Track business impact (adoption, revenue, NPS) alongside delivery metrics. A feature shipped is not value delivered until it's used.</p>
+                </div>
+            </div>
+            <div class="bestpractice-item">
+                <div class="bestpractice-num">2</div>
+                <div class="bestpractice-content">
+                    <h4>Start Small, Iterate</h4>
+                    <p>Begin with 3–5 metrics: velocity, cycle time, and one quality metric. Add complexity as maturity grows. Don't boil the ocean.</p>
+                </div>
+            </div>
+            <div class="bestpractice-item">
+                <div class="bestpractice-num">3</div>
+                <div class="bestpractice-content">
+                    <h4>Automate Collection</h4>
+                    <p>Never rely on manual metric tracking. Integrate with Jira, GitHub, CI/CD pipelines. If it's manual, it will decay.</p>
+                </div>
+            </div>
+            <div class="bestpractice-item">
+                <div class="bestpractice-num">4</div>
+                <div class="bestpractice-content">
+                    <h4>Balance Speed & Quality</h4>
+                    <p>Always pair speed metrics (velocity, deploy frequency) with quality metrics (CFR, defect density). Speed without quality is reckless.</p>
+                </div>
+            </div>
+            <div class="bestpractice-item">
+                <div class="bestpractice-num">5</div>
+                <div class="bestpractice-content">
+                    <h4>Use Trends Over Absolutes</h4>
+                    <p>A velocity of 42 means nothing alone. A velocity trending from 30→35→42→45 over 4 sprints tells a story of improvement.</p>
+                </div>
+            </div>
+            <div class="bestpractice-item">
+                <div class="bestpractice-num">6</div>
+                <div class="bestpractice-content">
+                    <h4>Team Ownership</h4>
+                    <p>Teams should own their metrics, choose what to track, and use retrospectives to decide actions. Metrics imposed from above lose trust.</p>
+                </div>
+            </div>
+            <div class="bestpractice-item">
+                <div class="bestpractice-num">7</div>
+                <div class="bestpractice-content">
+                    <h4>Include Leading Indicators</h4>
+                    <p>Don't wait for lagging indicators (production bugs). Track leading indicators (WIP growth, declining test pass rates) to predict problems.</p>
+                </div>
+            </div>
+            <div class="bestpractice-item">
+                <div class="bestpractice-num">8</div>
+                <div class="bestpractice-content">
+                    <h4>Psychological Safety First</h4>
+                    <p>Metrics should never be used as weapons. Google's Project Aristotle proved that psychological safety is the #1 factor for team effectiveness.</p>
+                </div>
+            </div>
+            <div class="bestpractice-item">
+                <div class="bestpractice-num">9</div>
+                <div class="bestpractice-content">
+                    <h4>Review & Retire</h4>
+                    <p>Regularly audit which metrics are being used for decisions. If nobody acts on a metric, stop tracking it. Metrics have a shelf life.</p>
+                </div>
+            </div>
+            <div class="bestpractice-item">
+                <div class="bestpractice-num">10</div>
+                <div class="bestpractice-content">
+                    <h4>Visualize & Radiate</h4>
+                    <p>Make metrics visible: TV dashboards, Slack bots, weekly digests. Information radiators drive awareness without requiring pull.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== TOOLS COMPARISON ===== -->
+    <section class="section">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">🛠️ Tooling Ecosystem</div>
+            <h2 class="section-title">Metrics<br><span class="gradient-text">Tools & Platforms</span></h2>
+            <p class="section-desc">Enterprise and open-source tools used by top engineering organizations for metrics collection and visualization.</p>
+        </div>
+
+        <div class="comparison-table-wrapper animate-on-scroll">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Category</th>
+                        <th>Best For</th>
+                        <th>DORA</th>
+                        <th>Flow</th>
+                        <th>Quality</th>
+                        <th>AI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Jira + Advanced Roadmaps</strong></td>
+                        <td>Project Management</td>
+                        <td>Sprint/Kanban metrics</td>
+                        <td><span class="status-badge status-orange">Plugin</span></td>
+                        <td><span class="status-badge status-green">✓ Native</span></td>
+                        <td><span class="status-badge status-orange">Basic</span></td>
+                        <td><span class="status-badge status-blue">Atlassian AI</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Azure DevOps Analytics</strong></td>
+                        <td>DevOps Platform</td>
+                        <td>Full pipeline metrics</td>
+                        <td><span class="status-badge status-green">✓ Native</span></td>
+                        <td><span class="status-badge status-green">✓ Native</span></td>
+                        <td><span class="status-badge status-green">✓ Native</span></td>
+                        <td><span class="status-badge status-blue">Copilot</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>GitHub Insights + Actions</strong></td>
+                        <td>Developer Platform</td>
+                        <td>Code & deployment metrics</td>
+                        <td><span class="status-badge status-green">✓ Native</span></td>
+                        <td><span class="status-badge status-orange">Basic</span></td>
+                        <td><span class="status-badge status-green">✓ CodeQL</span></td>
+                        <td><span class="status-badge status-green">✓ Copilot</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>LinearB / Sleuth</strong></td>
+                        <td>Engineering Intelligence</td>
+                        <td>DORA + developer metrics</td>
+                        <td><span class="status-badge status-green">✓ Core</span></td>
+                        <td><span class="status-badge status-green">✓ Native</span></td>
+                        <td><span class="status-badge status-green">✓ Native</span></td>
+                        <td><span class="status-badge status-blue">Growing</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Jellyfish / Pluralsight Flow</strong></td>
+                        <td>Eng Management</td>
+                        <td>Executive visibility</td>
+                        <td><span class="status-badge status-green">✓ Native</span></td>
+                        <td><span class="status-badge status-green">✓ Native</span></td>
+                        <td><span class="status-badge status-green">✓ Native</span></td>
+                        <td><span class="status-badge status-green">✓ AI insights</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Grafana + Prometheus</strong></td>
+                        <td>Observability</td>
+                        <td>Custom dashboards</td>
+                        <td><span class="status-badge status-blue">Custom</span></td>
+                        <td><span class="status-badge status-blue">Custom</span></td>
+                        <td><span class="status-badge status-blue">Custom</span></td>
+                        <td><span class="status-badge status-blue">ML plugins</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>SonarQube / SonarCloud</strong></td>
+                        <td>Code Quality</td>
+                        <td>Tech debt & quality</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td><span class="status-badge status-green">✓ Core</span></td>
+                        <td><span class="status-badge status-blue">AI Rules</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Datadog / New Relic</strong></td>
+                        <td>APM / Observability</td>
+                        <td>Production & DORA</td>
+                        <td><span class="status-badge status-green">✓ Native</span></td>
+                        <td>—</td>
+                        <td><span class="status-badge status-green">✓ APM</span></td>
+                        <td><span class="status-badge status-green">✓ AI Ops</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== COMPLETE METRICS REFERENCE ===== -->
+    <section class="section">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">📚 Complete Reference</div>
+            <h2 class="section-title">All 68+<br><span class="gradient-text">Metrics Index</span></h2>
+            <p class="section-desc">The definitive index of every agile, DevOps, quality, and engineering metric — categorized and defined.</p>
+        </div>
+
+        <div class="comparison-table-wrapper animate-on-scroll">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Metric Name</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Sprint Velocity</td><td>Throughput</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>2</td><td>Throughput (items/sprint)</td><td>Throughput</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>3</td><td>Velocity Variance (CV%)</td><td>Predictability</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>4</td><td>Sprint Goal Achievement</td><td>Outcome</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>5</td><td>Commitment Reliability</td><td>Predictability</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>6</td><td>Capacity Utilization</td><td>Capacity</td><td>Leading</td><td><span class="status-badge status-orange">Nice-to-have</span></td></tr>
+                    <tr><td>7</td><td>Sprint Burndown</td><td>Progress</td><td>Leading</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>8</td><td>Sprint Burnup</td><td>Progress</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>9</td><td>Release Burndown</td><td>Release</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>10</td><td>Deployment Frequency</td><td>DORA</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>11</td><td>Lead Time for Changes</td><td>DORA</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>12</td><td>Mean Time to Recovery</td><td>DORA</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>13</td><td>Change Failure Rate</td><td>DORA</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>14</td><td>Cycle Time</td><td>Flow</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>15</td><td>Lead Time</td><td>Flow</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>16</td><td>Work In Progress (WIP)</td><td>Flow</td><td>Leading</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>17</td><td>Cumulative Flow Diagram</td><td>Flow</td><td>Visual</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>18</td><td>Flow Efficiency</td><td>Flow</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>19</td><td>Flow Distribution</td><td>Flow</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>20</td><td>Defect Density</td><td>Quality</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>21</td><td>Code Coverage %</td><td>Quality</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>22</td><td>Technical Debt Ratio</td><td>Quality</td><td>Leading</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>23</td><td>Escaped Defects</td><td>Quality</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>24</td><td>Test Pass Rate</td><td>Quality</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>25</td><td>Code Review Turnaround</td><td>Quality</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>26</td><td>PR Size (Lines Changed)</td><td>Quality</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>27</td><td>Cyclomatic Complexity</td><td>Quality</td><td>Leading</td><td><span class="status-badge status-orange">Nice-to-have</span></td></tr>
+                    <tr><td>28</td><td>Security Vulnerability Count</td><td>Security</td><td>Leading</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>29</td><td>Rework Rate</td><td>Quality</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>30</td><td>Build Success Rate</td><td>DevOps</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>31</td><td>Pipeline Duration</td><td>DevOps</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>32</td><td>Infrastructure Cost</td><td>DevOps</td><td>Lagging</td><td><span class="status-badge status-orange">Nice-to-have</span></td></tr>
+                    <tr><td>33</td><td>Mean Time to Detect (MTTD)</td><td>Reliability</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>34</td><td>Availability / Uptime</td><td>Reliability</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>35</td><td>Error Budget Burn Rate</td><td>SRE</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>36</td><td>ROI per Feature</td><td>Business</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>37</td><td>Customer Satisfaction (CSAT)</td><td>Business</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>38</td><td>Net Promoter Score (NPS)</td><td>Business</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>39</td><td>Feature Usage / Adoption</td><td>Business</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>40</td><td>Time to Market</td><td>Business</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>41</td><td>Team Happiness Index</td><td>People</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>42</td><td>Sprint Satisfaction Score</td><td>People</td><td>Leading</td><td><span class="status-badge status-orange">Nice-to-have</span></td></tr>
+                    <tr><td>43</td><td>eNPS (Employee NPS)</td><td>People</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>44</td><td>Developer Experience (DevEx)</td><td>People</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>45</td><td>Attrition / Turnover Rate</td><td>People</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>46</td><td>Estimation Accuracy</td><td>Predictability</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>47</td><td>Scope Change %</td><td>Predictability</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>48</td><td>Strategic Alignment %</td><td>Portfolio</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>49</td><td>Dependency Index</td><td>Portfolio</td><td>Leading</td><td><span class="status-badge status-orange">Nice-to-have</span></td></tr>
+                    <tr><td>50</td><td>Cross-team Blockers</td><td>Portfolio</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>51</td><td>AI Code Suggestion Rate</td><td>AI</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>52</td><td>Copilot Acceptance Rate</td><td>AI</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>53</td><td>Auto-Test Coverage</td><td>AI</td><td>Leading</td><td><span class="status-badge status-orange">Nice-to-have</span></td></tr>
+                    <tr><td>54</td><td>AI Review Accuracy</td><td>AI</td><td>Lagging</td><td><span class="status-badge status-orange">Nice-to-have</span></td></tr>
+                    <tr><td>55</td><td>ML Model Drift Score</td><td>AI</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>56</td><td>Time Saved by AI</td><td>AI</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>57</td><td>Automation Coverage Index</td><td>DevOps</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>58</td><td>Context Switch Index</td><td>Waste</td><td>Leading</td><td><span class="status-badge status-orange">Nice-to-have</span></td></tr>
+                    <tr><td>59</td><td>Wait Time Ratio</td><td>Waste</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>60</td><td>Rework Percentage</td><td>Waste</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>61</td><td>Planned vs Unplanned Work</td><td>Waste</td><td>Leading</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>62</td><td>PI Predictability</td><td>SAFe</td><td>Lagging</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>63</td><td>Innovation Rate</td><td>Business</td><td>Leading</td><td><span class="status-badge status-orange">Nice-to-have</span></td></tr>
+                    <tr><td>64</td><td>On-call Burden</td><td>Reliability</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                    <tr><td>65</td><td>Incident Frequency</td><td>Reliability</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>66</td><td>SLA Compliance</td><td>Reliability</td><td>Lagging</td><td><span class="status-badge status-green">Essential</span></td></tr>
+                    <tr><td>67</td><td>Cost per Story Point</td><td>Financial</td><td>Lagging</td><td><span class="status-badge status-orange">Nice-to-have</span></td></tr>
+                    <tr><td>68</td><td>Value Stream Mapping Score</td><td>Lean</td><td>Leading</td><td><span class="status-badge status-blue">Important</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== TEAM HEALTH ===== -->
+    <section class="section">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">💖 People Metrics</div>
+            <h2 class="section-title">Team Health &<br><span class="gradient-text">Developer Experience</span></h2>
+            <p class="section-desc">The most important metrics are about people. Healthy teams build great software. Burned-out teams build technical debt.</p>
+        </div>
+
+        <div class="metrics-grid animate-on-scroll">
+            <div class="metric-card card-purple">
+                <div class="metric-card-icon" style="background: rgba(255,55,95,0.15);">😊</div>
+                <h3>Team Happiness Index</h3>
+                <p>Anonymous survey-based score (1-10) measuring team morale, psychological safety, and work satisfaction. The #1 leading indicator.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Method</span><span class="metric-detail-value">Anonymous pulse surveys</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Frequency</span><span class="metric-detail-value">Every sprint / bi-weekly</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Target</span><span class="metric-detail-value" style="color: var(--accent-green);">≥ 7.5/10</span></div>
+                </div>
+            </div>
+            <div class="metric-card card-purple">
+                <div class="metric-card-icon" style="background: rgba(255,55,95,0.15);">🧑‍💻</div>
+                <h3>Developer Experience (DevEx)</h3>
+                <p>Composite score measuring: flow state frequency, feedback loops, cognitive load. Research by GitHub & DX.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Dimensions</span><span class="metric-detail-value">Flow, Feedback, Cognitive Load</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Source</span><span class="metric-detail-value">DX framework (2023)</span></div>
+                </div>
+            </div>
+            <div class="metric-card card-purple">
+                <div class="metric-card-icon" style="background: rgba(255,55,95,0.15);">🏥</div>
+                <h3>Spotify Health Check</h3>
+                <p>Traffic-light model across 8-12 dimensions. Teams self-assess each area as 🟢 🟡 🔴 in facilitated sessions.</p>
+                <div class="metric-card-details">
+                    <div class="metric-detail-row"><span class="metric-detail-label">Areas</span><span class="metric-detail-value">Mission, Speed, Quality, Fun, etc.</span></div>
+                    <div class="metric-detail-row"><span class="metric-detail-label">Track</span><span class="metric-detail-value">Direction arrows ↑↓→</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>🎯 Agile Metrics Intelligence</h3>
+                <p>The definitive reference for software development metrics. Built with research from Google (DORA), GitHub (SPACE), Spotify, Amazon, Netflix, and the Lean/Agile community. Covering 68+ metrics across 12 categories.</p>
+                <p style="margin-top: 16px; font-size: 13px; color: var(--text-tertiary);">
+                    References: Accelerate (Forsgren, Humble, Kim) • SPACE Framework Paper (2021) • Flow Framework (Kersten) • Scrum Guide (Schwaber, Sutherland) • Kanban Method (Anderson) • SAFe 6.0 • Evidence-Based Management (Scrum.org)
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Core Metrics</h4>
+                <ul>
+                    <li><a href="#velocity">Velocity & Throughput</a></li>
+                    <li><a href="#burndown">Burn Charts</a></li>
+                    <li><a href="#dora">DORA Metrics</a></li>
+                    <li><a href="#flow">Flow Metrics</a></li>
+                    <li><a href="#quality">Quality Metrics</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Advanced</h4>
+                <ul>
+                    <li><a href="#ai-metrics">AI & Automation</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#formulas">Formulas</a></li>
+                    <li><a href="#frameworks">Frameworks</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">DORA Research</a></li>
+                    <li><a href="#">SPACE Paper</a></li>
+                    <li><a href="#">Accelerate Book</a></li>
+                    <li><a href="#">Flow Framework</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 Agile Metrics Intelligence Platform. For educational and reference use.</span>
+            <span>v3.0 | 68+ Metrics • 12 Categories • 9 Frameworks</span>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Tab functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabGroup = this.closest('.tabs-container');
+                tabGroup.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                tabGroup.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                const target = tabGroup.querySelector(`#${this.dataset.tab}`);
+                if (target) target.classList.add('active');
+            });
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Counter animation for hero stats
+        function animateCounter(el, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    el.textContent = target + (el.dataset.suffix || '');
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.floor(start) + (el.dataset.suffix || '');
+                }
+            }, 16);
+        }
+
+        // Nav background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav-container');
+            if (window.scrollY > 100) {
+                nav.style.borderBottom = '1px solid rgba(255,255,255,0.12)';
+            } else {
+                nav.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const links = document.querySelector('.nav-links');
+            if (links.style.display === 'flex') {
+                links.style.display = 'none';
+            } else {
+                links.style.display = 'flex';
+                links.style.flexDirection = 'column';
+                links.style.position = 'absolute';
+                links.style.top = '52px';
+                links.style.left = '0';
+                links.style.right = '0';
+                links.style.background = 'rgba(0,0,0,0.95)';
+                links.style.padding = '20px';
+                links.style.gap = '16px';
+                links.style.backdropFilter = 'blur(20px)';
+                links.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
+            }
+        }
+
+        // Keyboard shortcut for PDF export
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                // Let default print work — our print styles handle the rest
+            }
+        });
+
+        // Mind map node click interactions
+        document.querySelectorAll('.mm-node').forEach(node => {
+            node.addEventListener('click', function() {
+                // Pulse animation
+                this.style.transform = 'scale(1.15)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 300);
+            });
+        });
+
+        console.log(`
+╔══════════════════════════════════════════╗
+║   Agile Metrics Intelligence Platform    ║
+║   68+ Metrics • 12 Categories            ║
+║   DORA • Flow • Quality • AI             ║
+║   Enterprise Grade Reference             ║
+╚══════════════════════════════════════════╝
+        `);
+    </script>
+</body>
+</html>
